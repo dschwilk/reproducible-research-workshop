@@ -1,0 +1,889 @@
+#+SETUPFILE: ../styles/SETUP_l2_slides.org
+#+TITLE: Reproducible Research Workshop
+#+AUTHOR: Dylan Schwilk
+* Reproducible research
+:PROPERTIES:
+:EXPORT_FILE_NAME: 01-reproducible-research.pdf
+:END:
+** Introduction
+*** Reproducible research
+- The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
+- My own goal: all analyses are scripted: tables, figures, parameter values in the manuscript. Nothing is done "by hand".
+*** Why make research reproducible?
+- For your future self who is much less intelligent than your present genius self
+- For your collaborators and for others to build upon
+- Easily change documents when assumptions or data change
+- Preserve context on why analyses were performed in certain way
+*** Examples
+- My experience with the USDA Fire Fire Surrogate study
+- My current microclimate modeling project
+*** What do we need?
+**** Information
+- Data
+- Code (plain text instructions for the computer).
+- Written scientific communication (manuscripts, presentations, blogs)
+**** Tools
+1. a version control system (eg git)
+2. an interpreter for a computer language (eg R).  I also recommend learning how to use "the shell": simple interactive text-based language for interacting with your operating system. Standard on linux and mac, can be installed on windows.
+3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
+** RStudio
+*** RStudio
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/rstudio-screenshot.jpg]]
+*** RStudio: keyboard shortcuts
+**** In editor
+- Command/ctrl + enter: send code to console
+- Ctrl + 2: move cursor to console
+**** In console
+- Up arrow: retrieve previous command
+- Ctrl + up arrow: search commands
+- Ctrl + 1: move cursor to editor
+** Quick review / introduction to R
+*** R as a calculator:
+#+begin_src R :results output :exports both
+4.0 * 3.5
+log(10)  # natural log
+log10(10)
+(3 + 1) * 5
+3^-1
+1/0
+#+end_src
+
+#+results:
+: [1] 14
+: [1] 2.302585
+: [1] 1
+: [1] 20
+: [1] 0.3333333
+: [1] Inf
+
+*** Assigning values to variables
+**** Variables are assigned using "<-"'
+"=" is also now allowed. "==" tests equality.
+
+#+begin_src R :results output :exports both
+x <- 12.6
+x
+x == 13
+#+end_src
+
+#+results:
+: [1] 12.6
+: [1] FALSE
+
+**** Variables that contains many values
+*vectors* create with the concatenate function, c() :
+#+begin_src R :results output :exports both
+y <- c(3,7,9,11)
+y
+#+end_src
+
+#+results:
+: [1]  3  7  9 11
+
+*** Functions
+Functions are modules of code that accomplish a specific task. Functions usually take data as "arguments" and "return" a result. Once a function is written, it can be used over and over and over again. Functions can be "called" from within other functions.
+*** Functions in R
+Arguments to R functions can be matched by position or by name. So
+the following calls to sd() are all equivalent
+
+#+begin_src R :export code :session
+ mydata <- rnorm(100)
+ sd(mydata)
+ sd(x = mydata)
+ sd(x = mydata, na.rm = FALSE)
+ sd(na.rm = FALSE, x = mydata)
+ sd(na.rm = FALSE, mydata)
+#+end_src
+
+#+results:
+: 0.956288780368169
+
+*** Example: random numbers
+
+#+begin_src R :results output :exports both :session
+runif(5)
+#+end_src
+
+#+results:
+: [1] 0.0705746 0.7757365 0.2578603 0.3275505 0.6414583
+
+#+begin_src R :results output :exports both :session
+runif(5, 0, 10)
+#+end_src#+begin_src R :results output :exports both
+
+#+results:
+: [1] 2.9466004 8.9681397 2.7195012 6.7328881 0.2388521
+
+#+begin_src R :results output :exports both :session
+round(runif(5,-0.5,10.5))
+#+end_src
+
+#+results:
+: [1] 10  0  5 10  9
+
+#+begin_src R :results output :exports both :session
+floor(runif(5,0,11))
+#+end_src
+
+#+results:
+: [1]  7  5  8 10  7
+
+*** Where do these functions come from?
+**** R packages are loaded with library()
+: library(ggplot2)
+**** To install a new package:
+: install.packages("ggplot2")
+
+*** Scatterplots
+#+name: example-mpg1
+#+begin_src R :results output graphics :exports both :file plots/fig1_1.png :width 600 :height 600 :session
+library(ggplot2)
+# ?mpg
+head(mpg)
+str(mpg)
+summary(mpg)
+
+qplot(displ, hwy, data = mpg)
+#+end_src
+
+*** The result
+#+ATTR_LaTeX: :width 0.7\textwidth
+#+results: example-mpg1
+[[file:plots/fig1_1.png]]
+*** Vectors: the heart of R
+#+begin_src R :results output :exports both
+x <- 1:20
+x 
+#+end_src
+
+#+results:
+:  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+*** Working directory
+#+begin_src R :results none :export code
+getwd()
+setwd(path.expand("~/") )
+#+end_src
+In Rstudio: Session...Set Working Directory
+* Plain text and literate programming
+:PROPERTIES:
+:EXPORT_FILE_NAME: 02-plain-text.pdf
+:END:
+** Why plain text?
+*** Our main goal as scientists
+To make our research as reproducible and visible as possible
+\pause
+**** This entails:
+- Sharing of code
+- Sharing of data (if possible and not proprietary nor privacy sensitive)
+- Sharing of output (presentation, article, website)
+*** The power of plain text
+- Ubiquitous
+- Usually small in size
+- Portable across platforms (and versions)
+\pause
+**** It is scriptable (both as input as output).
+- Code is always in text format
+- usually data is in text format
+- underlying format for output (presentation, website, tables, articles, books) can be text as well
+*** Manipulation of text
+Most output is based on simple text file. There are two main final formats: HTML and PDF. One is pageless and one is centered on the idea of the printed page.
+**** This formatting requires markup-languages
+- HTML and CSS
+- LaTeX
+- Markdown
+
+And others (ReST, org-mode, etc)
+
+*** What is plain text?
+**** Computers store numbers
+- Computers store numbers in binary: 0100110 (38).
+- How to represent characters ("A", "f", "%")?
+
+#+BEAMER: \pause
+
+**** Simple idea: numeric code for each character.  Originated at Bell labs in 1960
+- ASCII: American Standard Code for Information Interchange (128 characters only!)
+- Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
+** Working with plain text
+*** Why you should love plain text
+:PROPERTIES:
+:BEAMER_act: [<+->]
+:END:
+- Portability. Linux, Windows, Mac, Android, etc. *Standard*.
+- Easy to use. Don't let a word processor get in you way when you just need to *write*
+- Keep content separate from formatting
+- Computers love plain text. Programs are written in plain text. Use one powerful text editing tool for everything you do.
+- Version control: VC systems work best on text files (eg git)
+*** What you want in a text editor
+- Syntax highlighting
+- Braces, parenthesis matching, automatic indenting
+- Ability to work with interpreters, shells
+- Spell checking
+
+\pause
+And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email ...
+**** Editors:
+- *Emacs* My favorite.  Runs on everything, super powerful.
+- *RStudio* For R code, markdown editing, interacts with git.
+** Markup languages
+*** Markup
+**** What is markup?
+- Even with unicode, plain text is, well, *plain*
+- How do we produce pretty formatted output?
+\pause
+***** With markup languages
+HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
+*** LaTeX
+**** LaTeX
+- A set of macros around Tex, a markup language invented by Donald Knuth
+- A document preparation system and document markup language.
+- Defacto standard in academic publishing. Formulae used in HTML pages (e.g., Wikipedia)
+#+BEAMER: \pause
+***** But ...
+Notation is cumbersome. It is a "heavyweight" markup language. It is geared towards printed (pdf) output where pages matter (eg printed journal articles)
+**** A LaTeX example
+#+begin_src latex :results none :exports code
+\documentclass[12pt]{article}
+\begin{document}
+\section*{My Paper}
+I just discovered that:
+\begin{equation} e=mc^2 \end{equation}
+
+\begin{table}[h] \centering
+\caption{My table}
+\begin{tabular}{lrs}
+\hline
+Left & right & center \\
+\midrule
+data & 0.01 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{document}
+#+end_src
+
+**** Result
+
+#+begin_src latex :exports none :file images/latex-example.pdf :booktabs
+\pagecolor{white}
+\section*{My Paper}
+I just discovered that:
+
+\begin{equation}
+e=mc^2
+\end{equation}
+
+\begin{table}[h]
+\centering
+\caption{My table}
+\begin{tabular}{lrs}
+\toprule
+Left & right & center \\
+\midrule
+data & 0.01 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+#+end_src
+
+#+results:
+#+BEGIN_LaTeX
+[[file:images/latex-example.pdf]]
+#+END_LaTeX
+
+
+[[file:images/latex-example.pdf]]
+
+**** It isn't as bad as it seems
+[[file:images/latex-example-emacs.png]]
+
+**** Ready for submission
+[[file:images/latex-paper-output.png]]
+
+*** Markdown
+**** Still, LaTeX is cumbersome
+Alternatives?
+\pause
+***** Markdown
+- Easy to learn http://daringfireball.net/projects/markdown/
+- Much more "lightweight" than  LaTeX
+\pause
+***** Purposes
+- LaTeX is for paper --- PDF
+- Markdown is for HTML (blogs, wikipedia) --- but sneakily uses some Latex when needed
+- But with pandoc (http://johnmacfarlane.net/pandoc/), Markdown is becoming language of choice among scientists
+- You can even export from markdown to MS Word to keep a collaborator happy.
+**** Markdown example
+#+begin_example
+
+## My Paper ##
+
+I just discovered that:
+
+$$e=mc^2$$
+
+### My Table ###
+
+| Left | right | center |
+|------|-------|--------|
+| data | 0.01  | 2.3    |
+
+#+end_example
+**** Which renders as
+
+[[file:images/markdown-simple-example.png]]
+
+**** Text markup
+
+#+begin_example
+*italic*, **bold**
+
+unordered list:
+- item 1
+- item 2
+- item 3
+
+Ordered list:
+1. item 1
+2. item 2
+3. item 3
+#+end_example
+**** Headings
+#+begin_example
+Heading1
+========
+
+# Heading1 #
+
+Heading2
+--------
+
+## Heading 2 ##
+
+### Heading 3 ###
+#+end_example
+**** Markdown links
+#+begin_example
+Links:
+
+http://daringfireball.net/projects/markdown/syntax
+[Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
+[Markdown syntax][mkdn]
+
+[mkdn]: http://daringfireball.net/projects/markdown/syntax
+#+end_example
+**** Markdown math
+Just use LateX math!
+
+#+name: latex-math
+#+begin_src latex :exports both
+$$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+#+end_src
+
+
+***** Which renders as:
+#+results: latex-math
+#+BEGIN_LaTeX
+$$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+#+END_LaTeX
+
+**** Markdown math
+Inline equations just need a single =$=
+
+#+name: latex-math2
+#+begin_src latex :exports both
+In ecology, "true" species diversity is:
+$ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
+#+end_src
+
+***** Which renders as
+
+#+results: latex-math2
+#+BEGIN_LaTeX
+In ecology, "true" species diversity is:
+$ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
+#+END_LaTeX
+
+*** Managing references
+**** BibTeX
+A reference database format
+
+- Very versatile and very powerful (most other markup languages work with bibtex as well)
+- Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
+**** Bibtex entry
+
+#+begin_src latex :results silent :exports code
+@article{Schwilk+Ackerly-2001,
+  title={Flammability and serotiny as strategies:
+         correlated evolution in pines},
+  author={Schwilk, Dylan W and Ackerly, David D},
+  journal={Oikos},
+  volume={94},
+  number={2},
+  pages={326--336},
+  year={2001},
+  publisher={Wiley Online Library}
+}
+#+end_src
+**** In Jabref
+http://jabref.sourceforge.net/
+
+[[file:images/jabref-example.png]]
+**** Markdown and BibTeX example
+Requires pandoc markdown extensions.
+#+begin_example
+# Introduction #
+Fire has been a powerful disturbance on the global
+landscape for hundreds of thousands of years,
+promoting traits in plants which confer an
+advantage in the presence of fire
+[@Keeley+Pausas+etal-2011; @He+Pausas+etal-2012].
+Understanding variation in fire response
+strategies both across and within fire regimes is
+a major goal of plant fire ecology
+[@Bond+vanWilgen-1996; @Bellingham-2000;
+@Schwilk+Ackerly-2001; @Keeley+Pausas+etal-2011].
+#+end_example
+
+*** Which markup to use?
+**** Which do I use and when:
+:PROPERTIES:
+:BEAMER_envargs: [<+->]
+:END:
+- Scientific papers :: LaTeX + BibTex. I'm starting to use Markdown for some papers (easy conversion to MS word for collaborators).
+- Presentations :: LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown)
+- Websites :: Markdown with html and css templates (jekyll, eg http://www.schwilk.org) or org-mode export (eg http://r-research-tool.schwilk.org/)
+- Documentation, notes, literate programming: org-mode or markdown
+
+**** Pandoc
+So how do we glue everything together and produce wonderful htmls and pdfs out of thin air?
+
+\pause
+With pandoc: http://johnmacfarlane.net/pandoc/
+\pause
+****** pandoc
+- Pandoc can convert from :: markdown, LaTeX, HTML, DocBook, Org-mode, and ... Microsoft Word .docx
+- To :: HTML formats (including HTML5 slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
+
+*** Scientific workflow
+**** An RMarkdown workflow
+Figure from Kieran Healy: http://kieranhealy.org/resources/
+
+ #+ATTR_LATEX: :width \textwidth
+[[file:images/Healy-workflow-wide.png]]
+**** RMarkdown in RStudio
+See http://rmarkdown.rstudio.com/
+#+ATTR_LATEX: :width .75\textwidth
+[[file:images/markdownChunk.png]]
+** Literate programming 
+*** Literate programming with RStudio
+Can aid in reproducible research: Simply combine text and code
+
+- Plain R script :: Simplest.  This is how I teach my graduate programming course. Encourage use of comments and require that script run from top to bottom without error. In Rstudio, one can compile this to an RMarkdown file  (Compile Notebook command).
+- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output.  Can work with LaTeX (rnw files) and with RMarkdown (Rmd). Can work with emacs or with RStudio
+*** RMarkdown and knitr
+=knitr= is an R package that can interpret .rnw files (LaTeX) or RMarkdown files (.Rmd) with R code blocks and "knit" them into LaTeX or markdown (.md) files that can be processed to html, pdf, etc (eg with pandoc)
+*** RMarkdown example:
+#+begin_example
+RMarkdown example
+=================
+
+## some code
+```{r mpg-data-plot, fig.width=4, fig.height=4}
+
+library(ggplot2)
+qplot(displ, hwy, data=mpg)
+
+```
+# Another heading
+Some data:
+```{r}
+head(mpg)
+```
+#+end_example
+*** Result:
+#+ATTR_LaTeX: :width 0.65\textwidth
+[[file:images/rmarkdown-example.png]]
+*** Best practices 
+
+Reproducible research in R (see  Yihui Xie's /Dynamic Documents with R and knitr/)
+
+- Use relative, not absolute, file paths and keep a whole project in one directory whenever possible
+- Don't change the working directory
+- Compile your reports in a clean R session to test that they really run (existing R objects gotcha)
+- Avoid any commands needing human interaction, and avoid relying on environment variables outside the code; the whole script should be automated and self-contained
+- Include instructions on running the document for your collaborators (or future self)
+
+* Version Control
+:PROPERTIES:
+:EXPORT_FILE_NAME: 03-version-control.pdf
+:END:
+** What is version control?
+*** Why use version control?
+**** You already use some sort of version control
+- File naming schemes (/eg/ ~my-file-July18-2013.doc~) or by copying folders around
+- Simple but error-prone
+- Does not help with branching, collaboration
+
+\pause
+**** A version control system (VCS) allows you to:
+- revert files back to a previous state
+- revert the entire project back to a previous state
+- review changes made over time
+- see who last modified something that might be causing a problem, who introduced an issue and when
+
+*** Local version control systems (VCS)
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:images/local-vc.png]]
+see http://git-scm.com/book/
+*** Centralized VCS
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:images/central-vc.png]]
+
+*** Distributed VCS
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:images/distributed-vc.png]]
+
+** git
+*** Installing
+**** On Linux:
+#+begin_src sh eval:no :exports code
+apt-get install git
+#+end_src
+
+#+results:
+\pause
+**** On Mac:
+http://www.macports.org
+\pause
+**** On windows:
+- Use =msysGit=: http://msysgit.github.io
+- See http://guides.beanstalkapp.com/version-control/git-on-windows.html
+*** Installing: alternative
+On Mac and Windows:
+**** The GitHub app (make sure to install command line tools):
+- https://mac.github.com/
+- https://windows.github.com/
+
+*** Getting started
+
+#+begin_src sh :eval no
+git config --global user.name "Dylan Schwilk"
+git config --global user.email "dylan@schwilk.org"
+#+end_src
+
+*** Getting a "repo" (repository)
+
+Move to empty directory
+#+begin_src sh :eval no
+git init
+touch README.md
+#+end_src
+*** What happened?
+Hidden directory called =.git=
+\tiny
+#+begin_example
+.
+├── .git
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   └── update.sample
+│   ├── info
+│   │   └── exclude
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       └── tags
+└── README.md
+#+end_example
+*** Checking status
+
+#+begin_src sh :eval no
+git status
+#+end_src
+
+\tiny
+#+begin_example
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+#+end_example
+*** git commands
+**** git states                                                    :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/git-states.png]]
+**** git commands                                                  :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+ - git init
+ - git add
+ - git status
+ - git log
+ - git commit
+*** staging files
+
+#+begin_src sh :eval no
+git add .
+git status
+#+end_src
+
+#+begin_example
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   README.md
+#+end_example
+*** Committing changes
+#+begin_src sh :eval no
+git commit -m "initial commit"
+git status
+#+end_src
+
+#+begin_example
+On branch master
+nothing to commit, working directory clean
+#+end_example
+*** git commit
+A commit is a snapshot taken from the index (staging area) *not from the working directory*!
+*** What exists now?
+#+ATTR_LaTeX: :width 0.8\textwidth
+[[file:images/git-filesystem2.png]]
+
+*** Clone repo
+\tiny
+#+begin_src sh :eval no
+git clone https://github.com/schwilklab/protocols.git
+cd protocols
+ls
+#+end_src
+
+#+begin_example
+chiller               conductance-protocol.md  field-work-checklist.md    README.md
+code                  data-management.md       gravimetric-soil-water.md  scripts
+computers-network.md  electrolyte-leakage.md   lab-business.md            stem-staining.md
+#+end_example
+*** A basic workflow
+- Edit files
+- Stage the changes (git add)
+- Review the changes (git diff)
+- Commit the changes (git commit)
+*** The git repository
+#+headers:  :file plots/git-repo-diagram.png :fit yes
+#+headers: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 600
+#+begin_src latex :exports none :noweb yes :headers '("\\usepackage{tikz}")
+\begin{tikzpicture}[snode/.style={draw=gray, fill=green, thick, text centered, rounded corners, minimum width=3.5cm}]
+\definecolor{green}{RGB}{143,178,143} % #8fb28f
+\definecolor{orange}{HTML}{FFB272}
+\definecolor{yellow}{HTML}{F0DFAF}
+\definecolor{blue}{HTML}{8EF5E6}
+
+\node[snode]              (wd)    at (0, 2)  {Working directory};
+\node[snode, fill=orange] (index) at (0, 1)  {Index (staging)};
+\node[snode, fill=blue]   (repo)  at (0, 0)  {Repository};
+
+\path[->,thick, gray, text=yellow]  (wd.west) edge [out=180, in=180] node[left=0cm] {git add} (index.west) ;
+\path[->,thick, gray, text=yellow]  (index.east) edge [out=0, in=0] node[right=0cm] {git commit} (repo.east) ;
+\end{tikzpicture}
+#+end_src
+
+#+results:
+#+BEGIN_LaTeX
+[[file:plots/git-repo-diagram.png]]
+#+END_LaTeX
+
+#+ATTR_LaTeX: :width .8\textwidth
+[[file:plots/git-repo-diagram.png]]
+*** git log
+#+begin_src sh :eval no :exports code
+git log --pretty=oneline --abbrev-commit -10
+#+end_src
+
+#+begin_example
+9a391ef Add Rstudio markdown example
+0af188a Add slides to encryption lecture
+87ba767 Edits and additions to plain text lecture
+bc7b266 Add slides and images to git lecture
+038146d Add "plots" subdir to lectures
+237cebe Add slides to version control (git) lecture
+91476e4 Add examples to markup lecture
+b1b66ab Add \usepackage{booktabs} to style files
+ee949cd Add and expand lectures
+e18d611 Add content to lecture on Emacs
+#+end_example
+*** git diff
+- =git diff= :: difference between working directory and index (staging area)
+- =git diff --staged= :: difference between index and last commit
+
+With right options, diff can show changes between any two commits, any two files, etc.
+*** git diff example
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/github-diff-example.png]]
+
+** Working with branches
+*** Branches
+A branch represents an independent line of development.
+
+*** Show and create branches
+**** Show
+#+begin_src sh :eval no :exports code
+git branch
+#+end_src
+
+#+begin_example
+ * master
+   new-feature
+#+end_example
+
+**** Create
+#+begin_example
+git branch <newbranch>
+#+end_example
+
+**** Delete
+#+begin_example
+git branch -D <newbranch>
+#+end_example
+
+
+*** Using branches
+[[file:images/git-branch-diag.png]]
+
+*** Switch branches
+
+#+begin_example
+git checkout <existing-branch>
+#+end_example
+
+*** Merge
+Merging is Git's way of putting a branched history back together again.
+**** Note:
+This merges *into* the current branch
+
+#+begin_example
+git merge <branch>
+#+end_example
+*** Fast-forward merge
+#+ATTR_LATEX: :float :width 0.42\textwidth :center
+[[file:images/git-ff-merge.png]]
+*** Three-way merge
+#+ATTR_LATEX: :float :width 0.42\textwidth :center
+[[file:images/git-merge-3w.png]]
+*** Example fast-foward merge
+
+#+begin_src sh :eval no
+# Start a new feature
+git checkout -b new-feature master
+
+# Edit some files
+git add <file>
+git commit -m "Start a feature"
+
+# Edit some files
+git add <file>
+git commit -m "Finish a feature"
+
+# Merge in the new-feature branch
+git checkout master
+git merge new-feature
+git branch -d new-feature
+#+end_src
+
+*** Merge vs rebase
+** Working with remotes
+*** What is a "remote"
+- a version of the repository that hosted somewhere on the internet.
+- Remotes have a url (https or ssh), but the can also have names.
+- It is common to have only one remote at it is named "origin"
+\pause
+**** Why remotes
+Allow collaboration!
+
+*** GitHub
+
+We use GitHub for hosting, so most of of your local repos will be associated with a remote named "origin" and a url something like =git@github.com:schwilklab/CSC-sky-island-forest.git=
+
+*** Working with remotes
+When you clone from a remote, git remembers and calls that remote "origin". You can look at .git/config or, better use git commands to view:
+#+begin_src sh :results output :exports both
+git remote -v
+#+end_src
+
+#+results:
+: origin	git@github.com:dschwilk/software-tools-course.git (fetch)
+: origin	git@github.com:dschwilk/software-tools-course.git (push)
+
+*** Adding a remote
+If you need to add a remote to an existing repository:
+#+begin_src sh :eval no
+git remote add rem2 git@github.com:dschwilk/software-tools-course.git
+#+end_src
+
+*** Fetching and pulling
+**** fetch
+#+begin_src sh :eval no
+git fetch origin
+git fetch
+#+end_src
+
+This pulls the data to your local repository but doe not merge it.  It just means you have a local copy of the changes in the remote so that you *can* merge them.
+
+\pause
+
+**** pull
+#+begin_src sh :eval no
+git pull
+#+end_src
+
+Fetches data and then merges with your local repo.
+
+*** git push
+
+#+begin_example
+git push <remote> <branch name>
+eg: git push origin master
+or just: git push
+#+end_example
+
+This works if none else has pushed changes to that remote since you last pulled. If there is an error, you will need to pull (fetch and merge) first.
+
+*** git and GitHub
+
+** Advanced uses
+
+*** stage only portions of change
+#+begin_src sh :eval no
+git add -p
+#+end_src
+
+Interactively add changed "hunks".
+

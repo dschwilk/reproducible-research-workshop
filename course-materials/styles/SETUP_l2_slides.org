@@ -1,0 +1,38 @@
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:2 toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+STARTUP: BEAMER
+#+LaTeX_CLASS: beamer
+#+BEAMER_THEME: default
+#+BEAMER_FRAME_LEVEL: 3
+#+LaTeX_CLASS_OPTIONS: [presentation]
+#+LATEX_HEADER: \usepackage[justification=centering]{caption}
+#+LATEX_HEADER: \usepackage{fancyvrb}
+#+LATEX_HEADER: \useoutertheme[subsection=false,shadow]{miniframes}
+#+LATEX_HEADER: \useinnertheme{rounded}
+#+LATEX_HEADER: \usepackage{../styles/beamercolorthemeschwilk}
+#+LATEX_HEADER: \beamertemplatenavigationsymbolsempty
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \definecolor{keywords}{HTML}{F0DFAF}
+#+LATEX_HEADER: \definecolor{comments}{HTML}{CC9393}
+#+LATEX_HEADER: \definecolor{identifier}{HTML}{DCDCCC}
+#+LATEX_HEADER: \definecolor{string}{HTML}{8FB28F}
+#+LATEX_HEADER: \definecolor{bground}{HTML}{2F2F2F}
+#+LATEX_HEADER: \lstset{language=R,
+#+LATEX_HEADER:   basicstyle=\small\ttfamily,
+#+LATEX_HEADER:   keywordstyle=\color{keywords},
+#+LATEX_HEADER:   commentstyle=\color{comments}\emph,
+#+LATEX_HEADER:   identifierstyle=\color{identifier},
+#+LATEX_HEADER:   stringstyle=\color{string},
+#+LATEX_HEADER:   backgroundcolor=\color{bground},
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   columns=fullflexible,
+#+LATEX_HEADER:   fancyvrb,
+#+LATEX_HEADER:   basewidth={0.5em,0.4em}
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{booktabs}
+#+COLUMNS: %45ITEM %10EXPORT_FILE_NAME(File) %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col)  %8BEAMER_opt(Opt)
+#+PROPERTY: BEAMER_col_ALL 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0 :ETC
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../styles/schwilk-org.css" />

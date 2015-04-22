@@ -1,0 +1,29 @@
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+LATEX_HEADER: \usepackage[justification=centering]{caption}
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames]{color}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{fullpage}
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,formatcom = {\color[HTML]{DCDCCC}}}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \definecolor{keywords}{HTML}{F0DFAF}
+#+LATEX_HEADER: \definecolor{comments}{HTML}{CC9393}
+#+LATEX_HEADER: \definecolor{identifier}{HTML}{DCDCCC}
+#+LATEX_HEADER: \lstset{language=R,
+#+LATEX_HEADER:   backgroundcolor=\color{white},
+#+LATEX_HEADER:   basicstyle=\small\ttfamily,
+#+LATEX_HEADER:   keywordstyle=\color{keywords},
+#+LATEX_HEADER:   commentstyle=\color{comments}\emph,
+#+LATEX_HEADER:   identifierstyle=\color{identifier},
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   columns=fullflexible,
+#+LATEX_HEADER:   fancyvrb,
+#+LATEX_HEADER:   basewidth={0.5em,0.4em}
+#+LATEX_HEADER: }
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../styles/schwilk-org.css" />
+

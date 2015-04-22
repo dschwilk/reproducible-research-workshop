@@ -1,0 +1,10 @@
+# compilation results
+*.pdf
+*.tex
+*.html
+*.vrb
+*.aux
+*.log
+*.out
+
+
