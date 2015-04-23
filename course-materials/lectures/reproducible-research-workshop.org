@@ -181,7 +181,7 @@ In Rstudio: Session...Set Working Directory
 ** Why plain text?
 *** Our main goal as scientists
 To make our research as reproducible and visible as possible
-\pause
+#+BEAMER: \pause
 **** This entails:
 - Sharing of code
 - Sharing of data (if possible and not proprietary nor privacy sensitive)
@@ -190,7 +190,7 @@ To make our research as reproducible and visible as possible
 - Ubiquitous
 - Usually small in size
 - Portable across platforms (and versions)
-\pause
+#+BEAMER: \pause
 **** It is scriptable (both as input as output).
 - Code is always in text format
 - usually data is in text format
@@ -231,7 +231,7 @@ And others (ReST, org-mode, etc)
 - Ability to work with interpreters, shells
 - Spell checking
 
-\pause
+#+BEAMER: \pause
 And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email ...
 **** Editors:
 - *Emacs* My favorite.  Runs on everything, super powerful.
@@ -241,7 +241,7 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 **** What is markup?
 - Even with unicode, plain text is, well, *plain*
 - How do we produce pretty formatted output?
-\pause
+#+BEAMER: \pause
 ***** With markup languages
 HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
 *** LaTeX
@@ -314,11 +314,11 @@ data & 0.01 & 2.3 \\
 *** Markdown
 **** Still, LaTeX is cumbersome
 Alternatives?
-\pause
+#+BEAMER: \pause
 ***** Markdown
 - Easy to learn http://daringfireball.net/projects/markdown/
 - Much more "lightweight" than  LaTeX
-\pause
+#+BEAMER: \pause
 ***** Purposes
 - LaTeX is for paper --- PDF
 - Markdown is for HTML (blogs, wikipedia) --- but sneakily uses some Latex when needed
@@ -469,9 +469,9 @@ a major goal of plant fire ecology
 **** Pandoc
 So how do we glue everything together and produce wonderful htmls and pdfs out of thin air?
 
-\pause
+#+BEAMER: \pause
 With pandoc: http://johnmacfarlane.net/pandoc/
-\pause
+#+BEAMER: \pause
 ****** pandoc
 - Pandoc can convert from :: markdown, LaTeX, HTML, DocBook, Org-mode, and ... Microsoft Word .docx
 - To :: HTML formats (including HTML5 slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
@@ -536,7 +536,7 @@ Reproducible research in R (see  Yihui Xie's /Dynamic Documents with R and knitr
 - Simple but error-prone
 - Does not help with branching, collaboration
 
-\pause
+#+BEAMER: \pause
 **** A version control system (VCS) allows you to:
 - revert files back to a previous state
 - revert the entire project back to a previous state
@@ -833,7 +833,7 @@ git branch -d new-feature
 - a version of the repository that hosted somewhere on the internet.
 - Remotes have a url (https or ssh), but the can also have names.
 - It is common to have only one remote at it is named "origin"
-\pause
+#+BEAMER: \pause
 **** Why remotes
 Allow collaboration!
 
@@ -866,7 +866,7 @@ git fetch
 
 This pulls the data to your local repository but doe not merge it.  It just means you have a local copy of the changes in the remote so that you *can* merge them.
 
-\pause
+#+BEAMER: \pause
 
 **** pull
 #+begin_src sh :eval no
