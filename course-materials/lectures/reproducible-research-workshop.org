@@ -10,6 +10,10 @@ rm(list=ls())
 set.seed(55)
 #+end_src
 ** Introduction
+*** Three parts to today's workshop
+1. Introduction to reproducible research and R review
+2. Plain text and literate programming
+3. Version control
 *** Reproducible research
 - The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
 - My own goal: all analyses are scripted: tables, figures, parameter values in the manuscript. Nothing is done "by hand".
@@ -27,8 +31,8 @@ set.seed(55)
 - Code (plain text instructions for the computer).
 - Written scientific communication (manuscripts, presentations, blogs)
 **** Tools
-1. a version control system (eg git)
-2. an interpreter for a computer language (eg R).  I also recommend learning how to use "the shell": simple interactive text-based language for interacting with your operating system. Standard on linux and mac, can be installed on windows.
+1. a version control system to keep track of it all
+2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
 3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
 ** RStudio
 *** RStudio
@@ -210,6 +214,7 @@ And others (ReST, org-mode, etc)
 **** Simple idea: numeric code for each character.  Originated at Bell labs in 1960
 - ASCII: American Standard Code for Information Interchange (128 characters only!)
 - Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
+- Use utf-8 (a unicode encoding)
 ** Working with plain text
 *** Why you should love plain text
 :PROPERTIES:
