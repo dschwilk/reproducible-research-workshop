@@ -1,0 +1,14 @@
+#+OPTIONS:   H:2 num:nil toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+TITLE: Reproducible Research Workshop
+#+AUTHOR: Dylan Schwilk
+
+* Course Materials
+- [[file:lectures/reproducible-research-workshop.org][Lecture notes]]
+* External resources
+- [[http://www.rstudio.com/][RStudio]]
+- [[https://try.github.io][GitHub learn git tutorial]]
+- [[http://library.ttu.edu/lynda/][TTU lynda.com git tutorial]]
+- [[http://pandoc.org/][pandoc]]
+
+
+
