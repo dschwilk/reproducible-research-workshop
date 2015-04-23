@@ -5,6 +5,10 @@
 :PROPERTIES:
 :EXPORT_FILE_NAME: 01-reproducible-research.pdf
 :END:
+#+begin_src R :results none :exports none :session
+rm(list=ls())
+set.seed(55)
+#+end_src
 ** Introduction
 *** Reproducible research
 - The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
@@ -839,8 +843,8 @@ git remote -v
 #+end_src
 
 #+results:
-: origin	git@github.com:dschwilk/software-tools-course.git (fetch)
-: origin	git@github.com:dschwilk/software-tools-course.git (push)
+: origin	git@github.com:dschwilk/rr-workshop.git (fetch)
+: origin	git@github.com:dschwilk/rr-workshop.git (push)
 
 *** Adding a remote
 If you need to add a remote to an existing repository:
