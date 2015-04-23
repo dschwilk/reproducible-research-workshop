@@ -1,0 +1,1574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Reproducible Research Workshop</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Dylan Schwilk" />
+<link rel="stylesheet" type="text/css" href="../styles/schwilk-org.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Reproducible Research Workshop</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Reproducible research</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Introduction</a></li>
+<li><a href="#sec-1-2">1.2. RStudio</a></li>
+<li><a href="#sec-1-3">1.3. Quick review / introduction to R</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Plain text and literate programming</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Why plain text?</a></li>
+<li><a href="#sec-2-2">2.2. Working with plain text</a></li>
+<li><a href="#sec-2-3">2.3. Markup languages</a></li>
+<li><a href="#sec-2-4">2.4. Literate programming</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Version Control</a>
+<ul>
+<li><a href="#sec-3-1">3.1. What is version control?</a></li>
+<li><a href="#sec-3-2">3.2. git</a></li>
+<li><a href="#sec-3-3">3.3. Working with branches</a></li>
+<li><a href="#sec-3-4">3.4. Working with remotes</a></li>
+<li><a href="#sec-3-5">3.5. Advanced uses</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Reproducible research</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><ul class="org-ul"><li><a id="sec-1-1-1" name="sec-1-1-1"></a>Reproducible research<br  /><div class="outline-text-4" id="text-1-1-1">
+<ul class="org-ul">
+<li>The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
+</li>
+<li>My own goal: all analyses are scripted: tables, figures, parameter values in the manuscript. Nothing is done "by hand".
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-1-2" name="sec-1-1-2"></a>Why make research reproducible?<br  /><div class="outline-text-4" id="text-1-1-2">
+<ul class="org-ul">
+<li>For your future self who is much less intelligent than your present genius self
+</li>
+<li>For your collaborators and for others to build upon
+</li>
+<li>Easily change documents when assumptions or data change
+</li>
+<li>Preserve context on why analyses were performed in certain way
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-1-3" name="sec-1-1-3"></a>Examples<br  /><div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li>My experience with the USDA Fire Fire Surrogate study
+</li>
+<li>My current microclimate modeling project
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-1-4" name="sec-1-1-4"></a>What do we need?<br  /><ul class="org-ul"><li><a id="sec-1-1-4-1" name="sec-1-1-4-1"></a>Information<br  /><div class="outline-text-5" id="text-1-1-4-1">
+<ul class="org-ul">
+<li>Data
+</li>
+<li>Code (plain text instructions for the computer).
+</li>
+<li>Written scientific communication (manuscripts, presentations, blogs)
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-1-4-2" name="sec-1-1-4-2"></a>Tools<br  /><div class="outline-text-5" id="text-1-1-4-2">
+<ol class="org-ol">
+<li>a version control system (eg git)
+</li>
+<li>an interpreter for a computer language (eg R).  I also recommend learning how to use "the shell": simple interactive text-based language for interacting with your operating system. Standard on linux and mac, can be installed on windows.
+</li>
+<li>a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
+</li>
+</ol>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> RStudio</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><ul class="org-ul"><li><a id="sec-1-2-1" name="sec-1-2-1"></a>RStudio<br  /><div class="outline-text-4" id="text-1-2-1">
+
+<div class="figure">
+<p><img src="images/rstudio-screenshot.jpg" alt="rstudio-screenshot.jpg" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-1-2-2" name="sec-1-2-2"></a>RStudio: keyboard shortcuts<br  /><ul class="org-ul"><li><a id="sec-1-2-2-1" name="sec-1-2-2-1"></a>In editor<br  /><div class="outline-text-5" id="text-1-2-2-1">
+<ul class="org-ul">
+<li>Command/ctrl + enter: send code to console
+</li>
+<li>Ctrl + 2: move cursor to console
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-2-2-2" name="sec-1-2-2-2"></a>In console<br  /><div class="outline-text-5" id="text-1-2-2-2">
+<ul class="org-ul">
+<li>Up arrow: retrieve previous command
+</li>
+<li>Ctrl + up arrow: search commands
+</li>
+<li>Ctrl + 1: move cursor to editor
+</li>
+</ul>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Quick review / introduction to R</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><ul class="org-ul"><li><a id="sec-1-3-1" name="sec-1-3-1"></a>R as a calculator:<br  /><div class="outline-text-4" id="text-1-3-1">
+<div class="org-src-container">
+
+<pre class="src src-R">4.0 * 3.5
+log(10)  <span class="org-comment-delimiter"># </span><span class="org-comment">natural log</span>
+log10(10)
+(3 + 1) * 5
+3^-1
+1/0
+</pre>
+</div>
+
+<pre class="example">
+[1] 14
+[1] 2.302585
+[1] 1
+[1] 20
+[1] 0.3333333
+[1] Inf
+</pre>
+</div>
+</li>
+
+<li><a id="sec-1-3-2" name="sec-1-3-2"></a>Assigning values to variables<br  /><ul class="org-ul"><li><a id="sec-1-3-2-1" name="sec-1-3-2-1"></a>Variables are assigned using "&lt;-"'<br  /><div class="outline-text-5" id="text-1-3-2-1">
+<p>
+"=" is also now allowed. "==" tests equality.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">x <span class="org-constant">&lt;-</span> 12.6
+x
+x == 13
+</pre>
+</div>
+
+<pre class="example">
+[1] 12.6
+[1] FALSE
+</pre>
+</div>
+</li>
+
+<li><a id="sec-1-3-2-2" name="sec-1-3-2-2"></a>Variables that contains many values<br  /><div class="outline-text-5" id="text-1-3-2-2">
+<p>
+<b>vectors</b> create with the concatenate function, c() :
+</p>
+<div class="org-src-container">
+
+<pre class="src src-R">y <span class="org-constant">&lt;-</span> c(3,7,9,11)
+y
+</pre>
+</div>
+
+<pre class="example">
+[1]  3  7  9 11
+</pre>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-1-3-3" name="sec-1-3-3"></a>Functions<br  /><div class="outline-text-4" id="text-1-3-3">
+<p>
+Functions are modules of code that accomplish a specific task. Functions usually take data as "arguments" and "return" a result. Once a function is written, it can be used over and over and over again. Functions can be "called" from within other functions.
+</p>
+</div>
+</li>
+<li><a id="sec-1-3-4" name="sec-1-3-4"></a>Functions in R<br  /><div class="outline-text-4" id="text-1-3-4">
+<p>
+Arguments to R functions can be matched by position or by name. So
+the following calls to sd() are all equivalent
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">mydata <span class="org-constant">&lt;-</span> rnorm(100)
+sd(mydata)
+sd(x = mydata)
+sd(x = mydata, na.rm = <span class="org-type">FALSE</span>)
+sd(na.rm = <span class="org-type">FALSE</span>, x = mydata)
+sd(na.rm = <span class="org-type">FALSE</span>, mydata)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-3-5" name="sec-1-3-5"></a>Example: random numbers<br  /><div class="outline-text-4" id="text-1-3-5">
+<div class="org-src-container">
+
+<pre class="src src-R">runif(5)
+</pre>
+</div>
+
+<pre class="example">
+[1] 0.3572187 0.6970697 0.1435156 0.3021654 0.2255560
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-R">runif(5, 0, 10)
+</pre>
+</div>
+
+<pre class="example">
+[1] 10  0  5 10  9
+</pre>
+
+<div class="org-src-container">
+
+<pre class="src src-R">floor(runif(5,0,11))
+</pre>
+</div>
+
+<pre class="example">
+[1]  2  8  0 10  9
+</pre>
+</div>
+</li>
+
+<li><a id="sec-1-3-6" name="sec-1-3-6"></a>Where do these functions come from?<br  /><ul class="org-ul"><li><a id="sec-1-3-6-1" name="sec-1-3-6-1"></a>R packages are loaded with library()<br  /><div class="outline-text-5" id="text-1-3-6-1">
+<pre class="example">
+library(ggplot2)
+</pre>
+</div>
+</li>
+<li><a id="sec-1-3-6-2" name="sec-1-3-6-2"></a>To install a new package:<br  /><div class="outline-text-5" id="text-1-3-6-2">
+<pre class="example">
+install.packages("ggplot2")
+</pre>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-1-3-7" name="sec-1-3-7"></a>Scatterplots<br  /><div class="outline-text-4" id="text-1-3-7">
+<div class="org-src-container">
+
+<pre class="src src-R" id="example-mpg1"><span class="org-constant">library</span>(ggplot2)
+<span class="org-comment-delimiter"># </span><span class="org-comment">?mpg</span>
+head(mpg)
+str(mpg)
+summary(mpg)
+
+qplot(displ, hwy, data = mpg)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-1-3-8" name="sec-1-3-8"></a>The result<br  /><div class="outline-text-4" id="text-1-3-8">
+
+<div class="figure">
+<p><img src="plots/fig1_1.png" alt="fig1_1.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-1-3-9" name="sec-1-3-9"></a>Vectors: the heart of R<br  /><div class="outline-text-4" id="text-1-3-9">
+<div class="org-src-container">
+
+<pre class="src src-R">x <span class="org-constant">&lt;-</span> 1:20
+x
+</pre>
+</div>
+
+<pre class="example">
+[1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+</pre>
+</div>
+</li>
+
+<li><a id="sec-1-3-10" name="sec-1-3-10"></a>Working directory<br  /><div class="outline-text-4" id="text-1-3-10">
+<div class="org-src-container">
+
+<pre class="src src-R">getwd()
+setwd(path.expand(<span class="org-string">"~/"</span>) )
+</pre>
+</div>
+<p>
+In Rstudio: Session&#x2026;Set Working Directory
+</p>
+</div>
+</li></ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Plain text and literate programming</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Why plain text?</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><ul class="org-ul"><li><a id="sec-2-1-1" name="sec-2-1-1"></a>Our main goal as scientists<br  /><div class="outline-text-4" id="text-2-1-1">
+<p>
+To make our research as reproducible and visible as possible
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-1-1-1" name="sec-2-1-1-1"></a>This entails:<br  /><div class="outline-text-5" id="text-2-1-1-1">
+<ul class="org-ul">
+<li>Sharing of code
+</li>
+<li>Sharing of data (if possible and not proprietary nor privacy sensitive)
+</li>
+<li>Sharing of output (presentation, article, website)
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-2-1-2" name="sec-2-1-2"></a>The power of plain text<br  /><div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>Ubiquitous
+</li>
+<li>Usually small in size
+</li>
+<li>Portable across platforms (and versions)
+</li>
+</ul>
+<p>
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-1-2-1" name="sec-2-1-2-1"></a>It is scriptable (both as input as output).<br  /><div class="outline-text-5" id="text-2-1-2-1">
+<ul class="org-ul">
+<li>Code is always in text format
+</li>
+<li>usually data is in text format
+</li>
+<li>underlying format for output (presentation, website, tables, articles, books) can be text as well
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-2-1-3" name="sec-2-1-3"></a>Manipulation of text<br  /><div class="outline-text-4" id="text-2-1-3">
+<p>
+Most output is based on simple text file. There are two main final formats: HTML and PDF. One is pageless and one is centered on the idea of the printed page.
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-1-3-1" name="sec-2-1-3-1"></a>This formatting requires markup-languages<br  /><div class="outline-text-5" id="text-2-1-3-1">
+<ul class="org-ul">
+<li>HTML and CSS
+</li>
+<li>LaTeX
+</li>
+<li>Markdown
+</li>
+</ul>
+
+<p>
+And others (ReST, org-mode, etc)
+</p>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-2-1-4" name="sec-2-1-4"></a>What is plain text?<br  /><ul class="org-ul"><li><a id="sec-2-1-4-1" name="sec-2-1-4-1"></a>Computers store numbers<br  /><div class="outline-text-5" id="text-2-1-4-1">
+<ul class="org-ul">
+<li>Computers store numbers in binary: 0100110 (38).
+</li>
+<li>How to represent characters ("A", "f", "%")?
+</li>
+</ul>
+</div>
+</li>
+
+<li><a id="sec-2-1-4-2" name="sec-2-1-4-2"></a>Simple idea: numeric code for each character.  Originated at Bell labs in 1960<br  /><div class="outline-text-5" id="text-2-1-4-2">
+<ul class="org-ul">
+<li>ASCII: American Standard Code for Information Interchange (128 characters only!)
+</li>
+<li>Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
+</li>
+</ul>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Working with plain text</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><ul class="org-ul"><li><a id="sec-2-2-1" name="sec-2-2-1"></a>Why you should love plain text<br  /><div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>Portability. Linux, Windows, Mac, Android, etc. <b>Standard</b>.
+</li>
+<li>Easy to use. Don't let a word processor get in you way when you just need to <b>write</b>
+</li>
+<li>Keep content separate from formatting
+</li>
+<li>Computers love plain text. Programs are written in plain text. Use one powerful text editing tool for everything you do.
+</li>
+<li>Version control: VC systems work best on text files (eg git)
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-2-2-2" name="sec-2-2-2"></a>What you want in a text editor<br  /><div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>Syntax highlighting
+</li>
+<li>Braces, parenthesis matching, automatic indenting
+</li>
+<li>Ability to work with interpreters, shells
+</li>
+<li>Spell checking
+</li>
+</ul>
+
+<p>
+\pause
+And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email &#x2026;
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-2-2-1" name="sec-2-2-2-1"></a>Editors:<br  /><div class="outline-text-5" id="text-2-2-2-1">
+<ul class="org-ul">
+<li><b>Emacs</b> My favorite.  Runs on everything, super powerful.
+</li>
+<li><b>RStudio</b> For R code, markdown editing, interacts with git.
+</li>
+</ul>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Markup languages</h3>
+<div class="outline-text-3" id="text-2-3">
+</div><ul class="org-ul"><li><a id="sec-2-3-1" name="sec-2-3-1"></a>Markup<br  /><ul class="org-ul"><li><a id="sec-2-3-1-1" name="sec-2-3-1-1"></a>What is markup?<br  /><div class="outline-text-5" id="text-2-3-1-1">
+<ul class="org-ul">
+<li>Even with unicode, plain text is, well, <b>plain</b>
+</li>
+<li>How do we produce pretty formatted output?
+</li>
+</ul>
+<p>
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-3-1-1-1" name="sec-2-3-1-1-1"></a>With markup languages<br  /><div class="outline-text-6" id="text-2-3-1-1-1">
+<p>
+HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
+</p>
+</div>
+</li></ul>
+</li></ul>
+</li>
+<li><a id="sec-2-3-2" name="sec-2-3-2"></a>LaTeX<br  /><ul class="org-ul"><li><a id="sec-2-3-2-1" name="sec-2-3-2-1"></a>LaTeX<br  /><div class="outline-text-5" id="text-2-3-2-1">
+<ul class="org-ul">
+<li>A set of macros around Tex, a markup language invented by Donald Knuth
+</li>
+<li>A document preparation system and document markup language.
+</li>
+<li>Defacto standard in academic publishing. Formulae used in HTML pages (e.g., Wikipedia)
+</li>
+</ul>
+</div>
+<ul class="org-ul"><li><a id="sec-2-3-2-1-1" name="sec-2-3-2-1-1"></a>But &#x2026;<br  /><div class="outline-text-6" id="text-2-3-2-1-1">
+<p>
+Notation is cumbersome. It is a "heavyweight" markup language. It is geared towards printed (pdf) output where pages matter (eg printed journal articles)
+</p>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-2-3-2-2" name="sec-2-3-2-2"></a>A LaTeX example<br  /><div class="outline-text-5" id="text-2-3-2-2">
+<div class="org-src-container">
+
+<pre class="src src-latex"><span class="org-font-latex-sedate"><span class="org-keyword">\documentclass</span></span>[<span class="org-variable-name">12pt</span>]{<span class="org-function-name">article</span>}
+<span class="org-font-latex-sedate"><span class="org-keyword">\begin</span></span>{<span class="org-function-name">document</span>}
+<span class="org-font-latex-sedate"><span class="org-keyword">\section</span></span><span class="org-keyword">*</span>{<span class="org-font-latex-sectioning-2">My Paper</span>}
+I just discovered that:
+<span class="org-font-latex-sedate"><span class="org-keyword">\begin</span></span>{<span class="org-function-name">equation</span>}<span class="org-font-latex-math"> e=mc^2 </span><span class="org-font-latex-sedate"><span class="org-keyword">\end</span></span>{<span class="org-function-name">equation</span>}
+
+<span class="org-font-latex-sedate"><span class="org-keyword">\begin</span></span>{<span class="org-function-name">table</span>}[h] <span class="org-font-latex-sedate"><span class="org-keyword">\centering</span></span>
+<span class="org-font-latex-sedate"><span class="org-keyword">\caption</span></span>{<span class="org-type">My table</span>}
+<span class="org-font-latex-sedate"><span class="org-keyword">\begin</span></span>{<span class="org-function-name">tabular</span>}{lrs}
+<span class="org-font-latex-sedate">\hline</span>
+Left <span class="org-font-latex-warning">&amp;</span> right <span class="org-font-latex-warning">&amp;</span> center <span class="org-font-latex-warning">\\</span>
+<span class="org-font-latex-sedate">\midrule</span>
+data <span class="org-font-latex-warning">&amp;</span> 0.01 <span class="org-font-latex-warning">&amp;</span> 2.3 <span class="org-font-latex-warning">\\</span>
+<span class="org-font-latex-sedate">\bottomrule</span>
+<span class="org-font-latex-sedate"><span class="org-keyword">\end</span></span>{<span class="org-function-name">tabular</span>}
+<span class="org-font-latex-sedate"><span class="org-keyword">\end</span></span>{<span class="org-function-name">table</span>}
+<span class="org-font-latex-sedate"><span class="org-keyword">\end</span></span>{<span class="org-function-name">document</span>}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-3-2-3" name="sec-2-3-2-3"></a>Result<br  /><div class="outline-text-5" id="text-2-3-2-3">
+<p>
+<a href="images/latex-example.pdf">images/latex-example.pdf</a>
+</p>
+</div>
+</li>
+
+<li><a id="sec-2-3-2-4" name="sec-2-3-2-4"></a>It isn't as bad as it seems<br  /><div class="outline-text-5" id="text-2-3-2-4">
+
+<div class="figure">
+<p><img src="images/latex-example-emacs.png" alt="latex-example-emacs.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-3-2-5" name="sec-2-3-2-5"></a>Ready for submission<br  /><div class="outline-text-5" id="text-2-3-2-5">
+
+<div class="figure">
+<p><img src="images/latex-paper-output.png" alt="latex-paper-output.png" />
+</p>
+</div>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-2-3-3" name="sec-2-3-3"></a>Markdown<br  /><ul class="org-ul"><li><a id="sec-2-3-3-1" name="sec-2-3-3-1"></a>Still, LaTeX is cumbersome<br  /><div class="outline-text-5" id="text-2-3-3-1">
+<p>
+Alternatives?
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-3-3-1-1" name="sec-2-3-3-1-1"></a>Markdown<br  /><div class="outline-text-6" id="text-2-3-3-1-1">
+<ul class="org-ul">
+<li>Easy to learn <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
+</li>
+<li>Much more "lightweight" than  LaTeX
+</li>
+</ul>
+<p>
+\pause
+</p>
+</div>
+</li>
+<li><a id="sec-2-3-3-1-2" name="sec-2-3-3-1-2"></a>Purposes<br  /><div class="outline-text-6" id="text-2-3-3-1-2">
+<ul class="org-ul">
+<li>LaTeX is for paper &#x2014; PDF
+</li>
+<li>Markdown is for HTML (blogs, wikipedia) &#x2014; but sneakily uses some Latex when needed
+</li>
+<li>But with pandoc (<a href="http://johnmacfarlane.net/pandoc/">http://johnmacfarlane.net/pandoc/</a>), Markdown is becoming language of choice among scientists
+</li>
+<li>You can even export from markdown to MS Word to keep a collaborator happy.
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-2-3-3-2" name="sec-2-3-3-2"></a>Markdown example<br  /><div class="outline-text-5" id="text-2-3-3-2">
+<pre class="example">
+## My Paper ##
+
+I just discovered that:
+
+$$e=mc^2$$
+
+### My Table ###
+
+| Left | right | center |
+|------|-------|--------|
+| data | 0.01  | 2.3    |
+</pre>
+</div>
+</li>
+<li><a id="sec-2-3-3-3" name="sec-2-3-3-3"></a>Which renders as<br  /><div class="outline-text-5" id="text-2-3-3-3">
+
+<div class="figure">
+<p><img src="images/markdown-simple-example.png" alt="markdown-simple-example.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-3-3-4" name="sec-2-3-3-4"></a>Text markup<br  /><div class="outline-text-5" id="text-2-3-3-4">
+<pre class="example">
+*italic*, **bold**
+
+unordered list:
+- item 1
+- item 2
+- item 3
+
+Ordered list:
+1. item 1
+2. item 2
+3. item 3
+</pre>
+</div>
+</li>
+<li><a id="sec-2-3-3-5" name="sec-2-3-3-5"></a>Headings<br  /><div class="outline-text-5" id="text-2-3-3-5">
+<pre class="example">
+Heading1
+========
+
+# Heading1 #
+
+Heading2
+--------
+
+## Heading 2 ##
+
+### Heading 3 ###
+</pre>
+</div>
+</li>
+<li><a id="sec-2-3-3-6" name="sec-2-3-3-6"></a>Markdown links<br  /><div class="outline-text-5" id="text-2-3-3-6">
+<pre class="example">
+Links:
+
+http://daringfireball.net/projects/markdown/syntax
+[Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
+[Markdown syntax][mkdn]
+
+[mkdn]: http://daringfireball.net/projects/markdown/syntax
+</pre>
+</div>
+</li>
+<li><a id="sec-2-3-3-7" name="sec-2-3-3-7"></a>Markdown math<br  /><div class="outline-text-5" id="text-2-3-3-7">
+<p>
+Just use LateX math!
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-latex" id="latex-math"><span class="org-font-latex-math">$$</span><span class="org-font-latex-sedate"><span class="org-font-latex-math">\frac</span></span><span class="org-font-latex-math">{n!}{k!(n-k)!} = </span><span class="org-font-latex-sedate"><span class="org-font-latex-math">\binom</span></span><span class="org-font-latex-math">{n}{k}$$</span>
+</pre>
+</div>
+</div>
+
+
+<ul class="org-ul"><li><a id="sec-2-3-3-7-1" name="sec-2-3-3-7-1"></a>Which renders as:<br  /><div class="outline-text-6" id="text-2-3-3-7-1">
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-2-3-3-8" name="sec-2-3-3-8"></a>Markdown math<br  /><div class="outline-text-5" id="text-2-3-3-8">
+<p>
+Inline equations just need a single <code>$</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-latex" id="latex-math2">In ecology, "true" species diversity is:
+<span class="org-font-latex-math">$ D_q = </span><span class="org-font-latex-sedate"><span class="org-font-latex-math">\frac</span></span><span class="org-font-latex-math">{1}{</span><span class="org-font-latex-sedate"><span class="org-font-latex-math">\sqrt</span></span><span class="org-font-latex-math">[q-1]{</span><span class="org-font-latex-sedate"><span class="org-font-latex-math">\sum</span></span><span class="org-font-latex-math">_{i=1}^R{p_{i} p_{i}^{q-1}}}}</span>
+</pre>
+</div>
+</div>
+
+<ul class="org-ul"><li><a id="sec-2-3-3-8-1" name="sec-2-3-3-8-1"></a>Which renders as<br  /><div class="outline-text-6" id="text-2-3-3-8-1">
+</div>
+</li></ul>
+</li></ul>
+</li>
+
+<li><a id="sec-2-3-4" name="sec-2-3-4"></a>Managing references<br  /><ul class="org-ul"><li><a id="sec-2-3-4-1" name="sec-2-3-4-1"></a>BibTeX<br  /><div class="outline-text-5" id="text-2-3-4-1">
+<p>
+A reference database format
+</p>
+
+<ul class="org-ul">
+<li>Very versatile and very powerful (most other markup languages work with bibtex as well)
+</li>
+<li>Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-2-3-4-2" name="sec-2-3-4-2"></a>Bibtex entry<br  /><div class="outline-text-5" id="text-2-3-4-2">
+<div class="org-src-container">
+
+<pre class="src src-latex">@article{Schwilk+Ackerly-2001,
+  title={Flammability and serotiny as strategies:
+         correlated evolution in pines},
+  author={Schwilk, Dylan W and Ackerly, David D},
+  journal={Oikos},
+  volume={94},
+  number={2},
+  pages={326--336},
+  year={2001},
+  publisher={Wiley Online Library}
+}
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-2-3-4-3" name="sec-2-3-4-3"></a>In Jabref<br  /><div class="outline-text-5" id="text-2-3-4-3">
+<p>
+<a href="http://jabref.sourceforge.net/">http://jabref.sourceforge.net/</a>
+</p>
+
+
+<div class="figure">
+<p><img src="images/jabref-example.png" alt="jabref-example.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-2-3-4-4" name="sec-2-3-4-4"></a>Markdown and BibTeX example<br  /><div class="outline-text-5" id="text-2-3-4-4">
+<p>
+Requires pandoc markdown extensions.
+</p>
+<pre class="example">
+# Introduction #
+Fire has been a powerful disturbance on the global
+landscape for hundreds of thousands of years,
+promoting traits in plants which confer an
+advantage in the presence of fire
+[@Keeley+Pausas+etal-2011; @He+Pausas+etal-2012].
+Understanding variation in fire response
+strategies both across and within fire regimes is
+a major goal of plant fire ecology
+[@Bond+vanWilgen-1996; @Bellingham-2000;
+@Schwilk+Ackerly-2001; @Keeley+Pausas+etal-2011].
+</pre>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-2-3-5" name="sec-2-3-5"></a>Which markup to use?<br  /><ul class="org-ul"><li><a id="sec-2-3-5-1" name="sec-2-3-5-1"></a>Which do I use and when:<br  /><div class="outline-text-5" id="text-2-3-5-1">
+<dl class="org-dl">
+<dt> Scientific papers </dt><dd>LaTeX + BibTex. I'm starting to use Markdown for some papers (easy conversion to MS word for collaborators).
+</dd>
+<dt> Presentations </dt><dd>LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown)
+</dd>
+<dt> Websites </dt><dd>Markdown with html and css templates (jekyll, eg <a href="http://www.schwilk.org">http://www.schwilk.org</a>) or org-mode export (eg <a href="http://r-research-tool.schwilk.org/">http://r-research-tool.schwilk.org/</a>)
+</dd>
+<dt> (no term) </dt><dd>Documentation, notes, literate programming: org-mode or markdown
+</dd>
+</dl>
+</div>
+</li>
+
+<li><a id="sec-2-3-5-2" name="sec-2-3-5-2"></a>Pandoc<br  /><div class="outline-text-5" id="text-2-3-5-2">
+<p>
+So how do we glue everything together and produce wonderful htmls and pdfs out of thin air?
+</p>
+
+<p>
+\pause
+With pandoc: <a href="http://johnmacfarlane.net/pandoc/">http://johnmacfarlane.net/pandoc/</a>
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-2-3-5-2-0-1" name="sec-2-3-5-2-0-1"></a>pandoc<br  /><div class="outline-text-7" id="text-2-3-5-2-0-1">
+<dl class="org-dl">
+<dt> Pandoc can convert from </dt><dd>markdown, LaTeX, HTML, DocBook, Org-mode, and &#x2026; Microsoft Word .docx
+</dd>
+<dt> To </dt><dd>HTML formats (including HTML5 slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
+</dd>
+</dl>
+</div>
+</li></ul>
+</li></ul>
+</li>
+
+<li><a id="sec-2-3-6" name="sec-2-3-6"></a>Scientific workflow<br  /><ul class="org-ul"><li><a id="sec-2-3-6-1" name="sec-2-3-6-1"></a>An RMarkdown workflow<br  /><div class="outline-text-5" id="text-2-3-6-1">
+<p>
+Figure from Kieran Healy: <a href="http://kieranhealy.org/resources/">http://kieranhealy.org/resources/</a>
+</p>
+
+
+<div class="figure">
+<p><img src="images/Healy-workflow-wide.png" alt="Healy-workflow-wide.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-2-3-6-2" name="sec-2-3-6-2"></a>RMarkdown in RStudio<br  /><div class="outline-text-5" id="text-2-3-6-2">
+<p>
+See <a href="http://rmarkdown.rstudio.com/">http://rmarkdown.rstudio.com/</a>
+</p>
+
+<div class="figure">
+<p><img src="images/markdownChunk.png" alt="markdownChunk.png" />
+</p>
+</div>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Literate programming</h3>
+<div class="outline-text-3" id="text-2-4">
+</div><ul class="org-ul"><li><a id="sec-2-4-1" name="sec-2-4-1"></a>Literate programming with RStudio<br  /><div class="outline-text-4" id="text-2-4-1">
+<p>
+Can aid in reproducible research: Simply combine text and code
+</p>
+
+<dl class="org-dl">
+<dt> Plain R script </dt><dd>Simplest.  This is how I teach my graduate programming course. Encourage use of comments and require that script run from top to bottom without error. In Rstudio, one can compile this to an RMarkdown file  (Compile Notebook command).
+</dd>
+<dt> knitr </dt><dd><a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>. R package. Mix text and code and "knit" to output.  Can work with LaTeX (rnw files) and with RMarkdown (Rmd). Can work with emacs or with RStudio
+</dd>
+</dl>
+</div>
+</li>
+<li><a id="sec-2-4-2" name="sec-2-4-2"></a>RMarkdown and knitr<br  /><div class="outline-text-4" id="text-2-4-2">
+<p>
+<code>knitr</code> is an R package that can interpret .rnw files (LaTeX) or RMarkdown files (.Rmd) with R code blocks and "knit" them into LaTeX or markdown (.md) files that can be processed to html, pdf, etc (eg with pandoc)
+</p>
+</div>
+</li>
+<li><a id="sec-2-4-3" name="sec-2-4-3"></a>RMarkdown example:<br  /><div class="outline-text-4" id="text-2-4-3">
+<pre class="example">
+RMarkdown example
+=================
+
+## some code
+```{r mpg-data-plot, fig.width=4, fig.height=4}
+
+library(ggplot2)
+qplot(displ, hwy, data=mpg)
+
+```
+# Another heading
+Some data:
+```{r}
+head(mpg)
+```
+</pre>
+</div>
+</li>
+<li><a id="sec-2-4-4" name="sec-2-4-4"></a>Result:<br  /><div class="outline-text-4" id="text-2-4-4">
+
+<div class="figure">
+<p><img src="images/rmarkdown-example.png" alt="rmarkdown-example.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-2-4-5" name="sec-2-4-5"></a>Best practices<br  /><div class="outline-text-4" id="text-2-4-5">
+<p>
+Reproducible research in R (see  Yihui Xie's <i>Dynamic Documents with R and knitr</i>)
+</p>
+
+<ul class="org-ul">
+<li>Use relative, not absolute, file paths and keep a whole project in one directory whenever possible
+</li>
+<li>Don't change the working directory
+</li>
+<li>Compile your reports in a clean R session to test that they really run (existing R objects gotcha)
+</li>
+<li>Avoid any commands needing human interaction, and avoid relying on environment variables outside the code; the whole script should be automated and self-contained
+</li>
+<li>Include instructions on running the document for your collaborators (or future self)
+</li>
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Version Control</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> What is version control?</h3>
+<div class="outline-text-3" id="text-3-1">
+</div><ul class="org-ul"><li><a id="sec-3-1-1" name="sec-3-1-1"></a>Why use version control?<br  /><ul class="org-ul"><li><a id="sec-3-1-1-1" name="sec-3-1-1-1"></a>You already use some sort of version control<br  /><div class="outline-text-5" id="text-3-1-1-1">
+<ul class="org-ul">
+<li>File naming schemes (<i>eg</i> <code>my-file-July18-2013.doc</code>) or by copying folders around
+</li>
+<li>Simple but error-prone
+</li>
+<li>Does not help with branching, collaboration
+</li>
+</ul>
+
+<p>
+\pause
+</p>
+</div>
+</li>
+<li><a id="sec-3-1-1-2" name="sec-3-1-1-2"></a>A version control system (VCS) allows you to:<br  /><div class="outline-text-5" id="text-3-1-1-2">
+<ul class="org-ul">
+<li>revert files back to a previous state
+</li>
+<li>revert the entire project back to a previous state
+</li>
+<li>review changes made over time
+</li>
+<li>see who last modified something that might be causing a problem, who introduced an issue and when
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-3-1-2" name="sec-3-1-2"></a>Local version control systems (VCS)<br  /><div class="outline-text-4" id="text-3-1-2">
+<p>
+<img src="images/local-vc.png" alt="local-vc.png" />
+see <a href="http://git-scm.com/book/">http://git-scm.com/book/</a>
+</p>
+</div>
+</li>
+<li><a id="sec-3-1-3" name="sec-3-1-3"></a>Centralized VCS<br  /><div class="outline-text-4" id="text-3-1-3">
+
+<div class="figure">
+<p><img src="images/central-vc.png" alt="central-vc.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-1-4" name="sec-3-1-4"></a>Distributed VCS<br  /><div class="outline-text-4" id="text-3-1-4">
+
+<div class="figure">
+<p><img src="images/distributed-vc.png" alt="distributed-vc.png" />
+</p>
+</div>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> git</h3>
+<div class="outline-text-3" id="text-3-2">
+</div><ul class="org-ul"><li><a id="sec-3-2-1" name="sec-3-2-1"></a>Installing<br  /><ul class="org-ul"><li><a id="sec-3-2-1-1" name="sec-3-2-1-1"></a>On Linux:<br  /><div class="outline-text-5" id="text-3-2-1-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">apt-get install git
+</pre>
+</div>
+<p>
+\pause
+</p>
+</div>
+</li>
+<li><a id="sec-3-2-1-2" name="sec-3-2-1-2"></a>On Mac:<br  /><div class="outline-text-5" id="text-3-2-1-2">
+<p>
+<a href="http://www.macports.org">http://www.macports.org</a>
+\pause
+</p>
+</div>
+</li>
+<li><a id="sec-3-2-1-3" name="sec-3-2-1-3"></a>On windows:<br  /><div class="outline-text-5" id="text-3-2-1-3">
+<ul class="org-ul">
+<li>Use <code>msysGit</code>: <a href="http://msysgit.github.io">http://msysgit.github.io</a>
+</li>
+<li>See <a href="http://guides.beanstalkapp.com/version-control/git-on-windows.html">http://guides.beanstalkapp.com/version-control/git-on-windows.html</a>
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-3-2-2" name="sec-3-2-2"></a>Installing: alternative<br  /><div class="outline-text-4" id="text-3-2-2">
+<p>
+On Mac and Windows:
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-3-2-2-1" name="sec-3-2-2-1"></a>The GitHub app (make sure to install command line tools):<br  /><div class="outline-text-5" id="text-3-2-2-1">
+<ul class="org-ul">
+<li><a href="https://mac.github.com/">https://mac.github.com/</a>
+</li>
+<li><a href="https://windows.github.com/">https://windows.github.com/</a>
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-3-2-3" name="sec-3-2-3"></a>Getting started<br  /><div class="outline-text-4" id="text-3-2-3">
+<div class="org-src-container">
+
+<pre class="src src-sh">git config --global user.name <span class="org-string">"Dylan Schwilk"</span>
+git config --global user.email <span class="org-string">"dylan@schwilk.org"</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-2-4" name="sec-3-2-4"></a>Getting a "repo" (repository)<br  /><div class="outline-text-4" id="text-3-2-4">
+<p>
+Move to empty directory
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git init
+touch README.md
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-3-2-5" name="sec-3-2-5"></a>What happened?<br  /><div class="outline-text-4" id="text-3-2-5">
+<p>
+Hidden directory called <code>.git</code>
+\tiny
+</p>
+<pre class="example">
+.
+├── .git
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   └── update.sample
+│   ├── info
+│   │   └── exclude
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       └── tags
+└── README.md
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-6" name="sec-3-2-6"></a>Checking status<br  /><div class="outline-text-4" id="text-3-2-6">
+<div class="org-src-container">
+
+<pre class="src src-sh">git status
+</pre>
+</div>
+
+<p>
+\tiny
+</p>
+<pre class="example">
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-7" name="sec-3-2-7"></a>git commands<br  /><ul class="org-ul"><li><a id="sec-3-2-7-1" name="sec-3-2-7-1"></a>git states&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br  /><div class="outline-text-5" id="text-3-2-7-1">
+
+<div class="figure">
+<p><img src="images/git-states.png" alt="git-states.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-3-2-7-2" name="sec-3-2-7-2"></a>git commands&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br  /><div class="outline-text-5" id="text-3-2-7-2">
+<ul class="org-ul">
+<li>git init
+</li>
+<li>git add
+</li>
+<li>git status
+</li>
+<li>git log
+</li>
+<li>git commit
+</li>
+</ul>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-3-2-8" name="sec-3-2-8"></a>staging files<br  /><div class="outline-text-4" id="text-3-2-8">
+<div class="org-src-container">
+
+<pre class="src src-sh">git add .
+git status
+</pre>
+</div>
+
+<pre class="example">
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+        new file:   README.md
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-9" name="sec-3-2-9"></a>Committing changes<br  /><div class="outline-text-4" id="text-3-2-9">
+<div class="org-src-container">
+
+<pre class="src src-sh">git commit -m <span class="org-string">"initial commit"</span>
+git status
+</pre>
+</div>
+
+<pre class="example">
+On branch master
+nothing to commit, working directory clean
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-10" name="sec-3-2-10"></a>git commit<br  /><div class="outline-text-4" id="text-3-2-10">
+<p>
+A commit is a snapshot taken from the index (staging area) <b>not from the working directory</b>!
+</p>
+</div>
+</li>
+<li><a id="sec-3-2-11" name="sec-3-2-11"></a>What exists now?<br  /><div class="outline-text-4" id="text-3-2-11">
+
+<div class="figure">
+<p><img src="images/git-filesystem2.png" alt="git-filesystem2.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-2-12" name="sec-3-2-12"></a>Clone repo<br  /><div class="outline-text-4" id="text-3-2-12">
+<p>
+\tiny
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git clone https://github.com/schwilklab/protocols.git
+<span class="org-builtin">cd</span> protocols
+ls
+</pre>
+</div>
+
+<pre class="example">
+chiller               conductance-protocol.md  field-work-checklist.md    README.md
+code                  data-management.md       gravimetric-soil-water.md  scripts
+computers-network.md  electrolyte-leakage.md   lab-business.md            stem-staining.md
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-13" name="sec-3-2-13"></a>A basic workflow<br  /><div class="outline-text-4" id="text-3-2-13">
+<ul class="org-ul">
+<li>Edit files
+</li>
+<li>Stage the changes (git add)
+</li>
+<li>Review the changes (git diff)
+</li>
+<li>Commit the changes (git commit)
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-3-2-14" name="sec-3-2-14"></a>The git repository<br  /><div class="outline-text-4" id="text-3-2-14">
+
+<div class="figure">
+<p><img src="plots/git-repo-diagram.png" alt="git-repo-diagram.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-3-2-15" name="sec-3-2-15"></a>git log<br  /><div class="outline-text-4" id="text-3-2-15">
+<div class="org-src-container">
+
+<pre class="src src-sh">git log --pretty=oneline --abbrev-commit -10
+</pre>
+</div>
+
+<pre class="example">
+9a391ef Add Rstudio markdown example
+0af188a Add slides to encryption lecture
+87ba767 Edits and additions to plain text lecture
+bc7b266 Add slides and images to git lecture
+038146d Add "plots" subdir to lectures
+237cebe Add slides to version control (git) lecture
+91476e4 Add examples to markup lecture
+b1b66ab Add \usepackage{booktabs} to style files
+ee949cd Add and expand lectures
+e18d611 Add content to lecture on Emacs
+</pre>
+</div>
+</li>
+<li><a id="sec-3-2-16" name="sec-3-2-16"></a>git diff<br  /><div class="outline-text-4" id="text-3-2-16">
+<dl class="org-dl">
+<dt> <code>git diff</code> </dt><dd>difference between working directory and index (staging area)
+</dd>
+<dt> <code>git diff --staged</code> </dt><dd>difference between index and last commit
+</dd>
+</dl>
+
+<p>
+With right options, diff can show changes between any two commits, any two files, etc.
+</p>
+</div>
+</li>
+<li><a id="sec-3-2-17" name="sec-3-2-17"></a>git diff example<br  /><div class="outline-text-4" id="text-3-2-17">
+
+<div class="figure">
+<p><img src="images/github-diff-example.png" alt="github-diff-example.png" />
+</p>
+</div>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Working with branches</h3>
+<div class="outline-text-3" id="text-3-3">
+</div><ul class="org-ul"><li><a id="sec-3-3-1" name="sec-3-3-1"></a>Branches<br  /><div class="outline-text-4" id="text-3-3-1">
+<p>
+A branch represents an independent line of development.
+</p>
+</div>
+</li>
+
+<li><a id="sec-3-3-2" name="sec-3-3-2"></a>Show and create branches<br  /><ul class="org-ul"><li><a id="sec-3-3-2-1" name="sec-3-3-2-1"></a>Show<br  /><div class="outline-text-5" id="text-3-3-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">git branch
+</pre>
+</div>
+
+<pre class="example">
+* master
+  new-feature
+</pre>
+</div>
+</li>
+
+<li><a id="sec-3-3-2-2" name="sec-3-3-2-2"></a>Create<br  /><div class="outline-text-5" id="text-3-3-2-2">
+<pre class="example">
+git branch &lt;newbranch&gt;
+</pre>
+</div>
+</li>
+
+<li><a id="sec-3-3-2-3" name="sec-3-3-2-3"></a>Delete<br  /><div class="outline-text-5" id="text-3-3-2-3">
+<pre class="example">
+git branch -D &lt;newbranch&gt;
+</pre>
+</div>
+</li></ul>
+</li>
+
+
+<li><a id="sec-3-3-3" name="sec-3-3-3"></a>Using branches<br  /><div class="outline-text-4" id="text-3-3-3">
+
+<div class="figure">
+<p><img src="images/git-branch-diag.png" alt="git-branch-diag.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-3-4" name="sec-3-3-4"></a>Switch branches<br  /><div class="outline-text-4" id="text-3-3-4">
+<pre class="example">
+git checkout &lt;existing-branch&gt;
+</pre>
+</div>
+</li>
+
+<li><a id="sec-3-3-5" name="sec-3-3-5"></a>Merge<br  /><div class="outline-text-4" id="text-3-3-5">
+<p>
+Merging is Git's way of putting a branched history back together again.
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-3-3-5-1" name="sec-3-3-5-1"></a>Note:<br  /><div class="outline-text-5" id="text-3-3-5-1">
+<p>
+This merges <b>into</b> the current branch
+</p>
+
+<pre class="example">
+git merge &lt;branch&gt;
+</pre>
+</div>
+</li></ul>
+</li>
+<li><a id="sec-3-3-6" name="sec-3-3-6"></a>Fast-forward merge<br  /><div class="outline-text-4" id="text-3-3-6">
+
+<div class="figure">
+<p><img src="images/git-ff-merge.png" alt="git-ff-merge.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-3-3-7" name="sec-3-3-7"></a>Three-way merge<br  /><div class="outline-text-4" id="text-3-3-7">
+
+<div class="figure">
+<p><img src="images/git-merge-3w.png" alt="git-merge-3w.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="sec-3-3-8" name="sec-3-3-8"></a>Example fast-foward merge<br  /><div class="outline-text-4" id="text-3-3-8">
+<div class="org-src-container">
+
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Start a new feature</span>
+git checkout -b new-feature master
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Edit some files</span>
+git add &lt;file&gt;
+git commit -m <span class="org-string">"Start a feature"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Edit some files</span>
+git add &lt;file&gt;
+git commit -m <span class="org-string">"Finish a feature"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Merge in the new-feature branch</span>
+git checkout master
+git merge new-feature
+git branch -d new-feature
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-3-9" name="sec-3-3-9"></a>Merge vs rebase<br  /></li></ul>
+</div>
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Working with remotes</h3>
+<div class="outline-text-3" id="text-3-4">
+</div><ul class="org-ul"><li><a id="sec-3-4-1" name="sec-3-4-1"></a>What is a "remote"<br  /><div class="outline-text-4" id="text-3-4-1">
+<ul class="org-ul">
+<li>a version of the repository that hosted somewhere on the internet.
+</li>
+<li>Remotes have a url (https or ssh), but the can also have names.
+</li>
+<li>It is common to have only one remote at it is named "origin"
+</li>
+</ul>
+<p>
+\pause
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-3-4-1-1" name="sec-3-4-1-1"></a>Why remotes<br  /><div class="outline-text-5" id="text-3-4-1-1">
+<p>
+Allow collaboration!
+</p>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-3-4-2" name="sec-3-4-2"></a>GitHub<br  /><div class="outline-text-4" id="text-3-4-2">
+<p>
+We use GitHub for hosting, so most of of your local repos will be associated with a remote named "origin" and a url something like <code>git@github.com:schwilklab/CSC-sky-island-forest.git</code>
+</p>
+</div>
+</li>
+
+<li><a id="sec-3-4-3" name="sec-3-4-3"></a>Working with remotes<br  /><div class="outline-text-4" id="text-3-4-3">
+<p>
+When you clone from a remote, git remembers and calls that remote "origin". You can look at .git/config or, better use git commands to view:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git remote -v
+</pre>
+</div>
+
+<pre class="example">
+origin  git@github.com:dschwilk/reproducible-research-workshop.git (fetch)
+origin  git@github.com:dschwilk/reproducible-research-workshop.git (push)
+</pre>
+</div>
+</li>
+
+<li><a id="sec-3-4-4" name="sec-3-4-4"></a>Adding a remote<br  /><div class="outline-text-4" id="text-3-4-4">
+<p>
+If you need to add a remote to an existing repository:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git remote add rem2 git@github.com:dschwilk/software-tools-course.git
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-3-4-5" name="sec-3-4-5"></a>Fetching and pulling<br  /><ul class="org-ul"><li><a id="sec-3-4-5-1" name="sec-3-4-5-1"></a>fetch<br  /><div class="outline-text-5" id="text-3-4-5-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">git fetch origin
+git fetch
+</pre>
+</div>
+
+<p>
+This pulls the data to your local repository but doe not merge it.  It just means you have a local copy of the changes in the remote so that you <b>can</b> merge them.
+</p>
+
+<p>
+\pause
+</p>
+</div>
+</li>
+
+<li><a id="sec-3-4-5-2" name="sec-3-4-5-2"></a>pull<br  /><div class="outline-text-5" id="text-3-4-5-2">
+<div class="org-src-container">
+
+<pre class="src src-sh">git pull
+</pre>
+</div>
+
+<p>
+Fetches data and then merges with your local repo.
+</p>
+</div>
+</li></ul>
+</li>
+
+<li><a id="sec-3-4-6" name="sec-3-4-6"></a>git push<br  /><div class="outline-text-4" id="text-3-4-6">
+<pre class="example">
+git push &lt;remote&gt; &lt;branch name&gt;
+eg: git push origin master
+or just: git push
+</pre>
+
+<p>
+This works if none else has pushed changes to that remote since you last pulled. If there is an error, you will need to pull (fetch and merge) first.
+</p>
+</div>
+</li>
+
+<li><a id="sec-3-4-7" name="sec-3-4-7"></a>git and GitHub<br  /></li></ul>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Advanced uses</h3>
+<div class="outline-text-3" id="text-3-5">
+</div><ul class="org-ul"><li><a id="sec-3-5-1" name="sec-3-5-1"></a>stage only portions of change<br  /><div class="outline-text-4" id="text-3-5-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">git add -p
+</pre>
+</div>
+
+<p>
+Interactively add changed "hunks".
+</p>
+</div>
+</li></ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+<div id="back-to-top">
+<a href="#top">Back to top</a> | <a href="mailto:dylan.schwilk@ttu.edu">E-mail Schwilk</a>
+</div>
+</div>
+</body>
+</html>
