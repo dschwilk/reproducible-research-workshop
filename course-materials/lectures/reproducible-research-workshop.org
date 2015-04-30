@@ -23,7 +23,7 @@ set.seed(55)
 - Easily change documents when assumptions or data change
 - Preserve context on why analyses were performed in certain way
 *** Examples
-- My experience with the USDA Fire Fire Surrogate study
+- My experience with the DOI/USDA Fire Fire Surrogate study
 - My current microclimate modeling project
 *** What do we need?
 **** Information
@@ -34,6 +34,17 @@ set.seed(55)
 1. a version control system to keep track of it all
 2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
 3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
+** Getting started
+*** Fork the workshop repository
+- Logon in to GitHub: https://github.com
+- search for "rr-workshop" (should find `/dschwilk/rr-workshop`)
+- click "Fork"
+*** Clone the workshop repository
+**** If you are on a 405 machine
+- double click the install github icon to install the GitHub application
+**** The clone the workshop repo
+- sign into GitHub
+- Select "clone repository" and select "rr-workshop"
 ** RStudio
 *** RStudio
 #+ATTR_LaTeX: :width \textwidth
@@ -46,6 +57,11 @@ set.seed(55)
 - Up arrow: retrieve previous command
 - Ctrl + up arrow: search commands
 - Ctrl + 1: move cursor to editor
+*** RStudio projects
+- file ... new project
+- select the folder into which you cloned "rr-worskhop"
+- set the working directory to the scripts subfolder
+- open birdd.R in the scripts subfolder 
 ** Quick review / introduction to R
 *** R as a calculator:
 #+begin_src R :results output :exports both
@@ -879,7 +895,6 @@ This works if none else has pushed changes to that remote since you last pulled.
 *** git and GitHub
 
 ** Advanced uses
-
 *** stage only portions of change
 #+begin_src sh :eval no
 git add -p
