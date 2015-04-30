@@ -60,6 +60,7 @@ set.seed(55)
 *** RStudio projects
 - file ... new project
 - select the folder into which you cloned "rr-worskhop"
+- See that there is a git icon and some options under the tools menu now
 - set the working directory to the scripts subfolder
 - open birdd.R in the scripts subfolder 
 ** Quick review / introduction to R
@@ -577,11 +578,6 @@ On Mac and Windows:
 **** The GitHub app (make sure to install command line tools as well):
 - https://mac.github.com/
 - https://windows.github.com/
-*** Getting started on 405 computers
-- Run install GitHub. Not strictly necessary but adds the GitHub app which is a front end to git
-- Now log in to github, and clone the dschwilk/rr-workshop repostiory
-- go back to RStudio and create new project from existing directory.  Navigate to the location of the repo you just cloned (Github/rr-workshop). 
-- See that there is a git icon and some options under the tools menu now. 
 *** Configuring
 
 Done automatically if you ran the GitHub app and logged on to github
