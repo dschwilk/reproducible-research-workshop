@@ -2,6 +2,8 @@
 #+TITLE: Reproducible Research Workshop
 #+AUTHOR: Dylan Schwilk
 
+May 13, 2015 1:00-5:00 PM, Biology 405
+
 * Setup
 
 The windows computers in room 405 will have software pre-installed.  If you want to bring your own laptop (recommended), please install the following software. 
