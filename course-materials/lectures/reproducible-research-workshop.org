@@ -306,7 +306,7 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 #+BEAMER: \pause
 ***** With markup languages
 HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
-*** LaTeX
+*** LaTeX (just for illustration)
 **** LaTeX
 - A set of macros around Tex, a markup language invented by Donald Knuth
 - A document preparation system and document markup language.
