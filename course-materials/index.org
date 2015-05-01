@@ -38,6 +38,7 @@ Install R by downloading and running [[http://cran.r-project.org/bin/macosx/R-la
 You can download the binary files for your distribution from [[http://cran.r-project.org/index.html][CRAN]]. Or
 you can use your package manager (e.g. for Debian/Ubuntu 	run =sudo apt-get install r-base= and for Fedora run =sudo yum install R=.  Also, please install the [[href=http://www.rstudio.com/ide/download/desktop][RStudio IDE]].
 * Course Materials
+- Etherpad: we'll use this etherpad to share notes and code: https://etherpad.mozilla.org/2015-05-13-rr-workshop
 - [[file:lectures/reproducible-research-workshop.org][Lecture notes]]
 * External resources
 - [[http://www.rstudio.com/][RStudio]]
