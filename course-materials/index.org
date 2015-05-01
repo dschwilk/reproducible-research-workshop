@@ -2,6 +2,39 @@
 #+TITLE: Reproducible Research Workshop
 #+AUTHOR: Dylan Schwilk
 
+* Setup
+
+The windows computers in room 405 will have software pre-installed.  If you want to bring your own laptop (recommended), please install the following software. 
+
+** The Bash Shell
+Bash is a commonly-used shell that gives you the power to do simple tasks more quickly.
+*** Windows
+	Install Git for Windows by download and running [[http://msysgit.github.io/][the installer]] this will provide you with both Git and Bash in the Git Bash program.
+*** Mac OS X
+The default shell in all versions of Mac OS X is bash, so no need to install anything.  You access bash from the Terminal (found in `/Applications/Utilities`).  You may want to keep Terminal in your dock for this workshop.
+*** Linux
+The default shell is usually `bash`, but if your machine is set up differently you can run it by opening a terminal and typing `bash`.  There is no need to install anything.
+** Git
+Git is a version control system that lets you track who made changes to what when and has options for easily updating a shared or public version of your code on [[https://github.com/][github.com]]
+*** Windows
+Git should be installed on your computer as part of your Bash install (described above).
+*** Mac OS X
+For OS X 10.9 and higher, install Git for Mac by downloading and running [[http://git-scm.com/downloads][the installer]]. After installing Git, there will not be anything in your `/Applications`, 	as Git is a command line program.
+
+For older versions of OS X (10.6-10.8) use the most recent available installer for your
+OS [[http://sourceforge.net/projects/git-osx-installer/files/][available here]]. Use the Leopard installer for 10.5 and the Snow Leopard installer for 10.6-10.8.
+*** Linux
+If Git is not already available on your machine you can try to install it via your distro's package manager. For Debian/Ubuntu run `sudo apt-get install git` and for Fedora run `sudo yum install git`.
+** R
+[[http://www.r-project.org][R]] is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we'll use [[http://www.rstudio.com/][RStudio]].
+*** Windows 
+Install R by downloading and running [[http://cran.r-project.org/bin/windows/base/release.htm][this .exe file]] [[http://cran.r-project.org/index.html][CRAN]]. Also, please install the  [[http://www.rstudio.com/ide/download/desktop][RStudio IDE]].
+*** Mac OS X
+Install R by downloading and running [[http://cran.r-project.org/bin/macosx/R-latest.pkg][this .pkg file]] [[http://cran.r-project.org/index.html][CRAN]]. Also, please install the
+[[http://www.rstudio.com/ide/download/desktop][RStudio IDE]].
+*** Linux
+You can download the binary files for your distribution from [[http://cran.r-project.org/index.html][CRAN]]. Or
+you can use your package manager (e.g. for Debian/Ubuntu 	run `sudo apt-get install r-base` and for Fedora run `sudo yum install R`.  Also, please install the [[href=http://www.rstudio.com/ide/download/desktop][RStudio IDE]].
 * Course Materials
 - [[file:lectures/reproducible-research-workshop.org][Lecture notes]]
 * External resources
