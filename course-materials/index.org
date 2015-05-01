@@ -17,7 +17,7 @@ The default shell in all versions of Mac OS X is bash, so no need to install any
 *** Linux
 The default shell is usually =bash=, but if your machine is set up differently you can run it by opening a terminal and typing =bash=.  There is no need to install anything.
 ** Git
-Git is a version control system that lets you track who made changes to what when and has options for easily updating a shared or public version of your code on [[https://github.com/][github.com]]
+Git is a version control system that lets you track who made changes to what when and has options for easily updating a shared or public version of your code on [[https://github.com/][github.com]]. I recommend you go ahead now and obtain a github.com account. This is not necessary, but will allow you to store your repositories on github for collaboration.
 *** Windows
 Git should be installed on your computer as part of your Bash install (described above).
 *** Mac OS X
