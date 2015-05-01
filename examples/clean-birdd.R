@@ -1,7 +1,5 @@
-## clean-bnames.r
+## clean-birdd.R
 ## -------------------
-## 2015-04-22
-## Dylan Schwilk
 
 ## This script downloads and cleans up morphological data from Galapagos
 ## finches, which is available from BIRDD: Beagle Investigation Return with
@@ -25,5 +23,7 @@ row.names(birdd) <- NULL # tidy up the row names
 
 # Quick look at wingl:
 ggplot(birdd, aes(taxon, wingl)) + geom_boxplot() + coord_flip()
-
 # hm, anything wrong?
+
+ggplot(birdd, aes(wingl, beakh, color=taxon)) + geom_point()
+
