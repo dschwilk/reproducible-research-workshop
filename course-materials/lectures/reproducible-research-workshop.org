@@ -45,16 +45,51 @@ set.seed(55)
 2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
 3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
 ** Getting started
-*** Fork the workshop repository
-- Logon in to GitHub: https://github.com
-- search for "rr-workshop" (should find `/dschwilk/rr-workshop`)
-- click "Fork"
 *** Clone the workshop repository
 **** If you are on a 405 machine
 - double click the install github icon to install the GitHub application
-**** The clone the workshop repo
+**** clone the workshop repo
+Open a terminal and type
+#+begin_src sh :eval no
+cd ~
+git clone https://github.com/dschwilk/rr-workshop.git
+#+end_src
+**** OR, via GUI:
 - sign into GitHub
-- Select "clone repository" and select "rr-workshop"
+- Select "clone repository" and search for "dschwilk/rr-workshop"
+*** The shell
+Open a terminal (bash)
+#+begin_src sh :eval no
+ls
+cd ..
+mkdir tempdir
+ls
+cd tempdir
+touch newfile.txt
+echo "hello"
+echo "hello" >> newfile.txt
+ls
+cat newfile.txt
+cd ..
+#+end_src
+*** Full vs relative paths
+#+begin_src sh :eval no
+pwd
+cd ~
+pwd
+#+end_src
+*** Shell command options
+#+begin_src sh :eval no
+ls -l
+ls -al
+man ls
+#+end_src
+*** Wildcards
+#+begin_src sh :eval no
+cd ~/rr-worskop/examples
+ls *.R
+ls *.r*
+#+end_src
 ** RStudio
 *** RStudio
 #+ATTR_LaTeX: :width \textwidth
