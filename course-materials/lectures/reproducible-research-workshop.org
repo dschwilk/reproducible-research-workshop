@@ -25,11 +25,21 @@ set.seed(55)
 *** Examples
 - My experience with the DOI/USDA Fire Fire Surrogate study
 - My current microclimate modeling project
+*** Automate repetitive tasks
+**** It's why we invented computers
+- saves time
+- avoids errors
+- records workflow
+- motivates command line = scripted work
+*** Automation
+[[file:images/xkcd-automation.png]] 
 *** What do we need?
 **** Information
 - Data
 - Code (plain text instructions for the computer).
 - Written scientific communication (manuscripts, presentations, blogs)
+
+#+BEAMER: \pause
 **** Tools
 1. a version control system to keep track of it all
 2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
