@@ -74,6 +74,15 @@ git clone https://github.com/dschwilk/rr-workshop.git
 - Select "clone repository" and search for "dschwilk/rr-workshop"
 ** The shell
 *** The shell
+**** What is the shell?
+The shell a command line interface which allows you to control your computer. 
+
+Tasks are accomplished by entering commands with a keyboard (or by running a plain text script) instead of controlling a graphical user interface.
+
+The most popular shell is [[https://www.gnu.org/software/bash/manual/html_node/Introduction.html#Introduction][Bash ("Bourne Again SHell")]]
+**** What is a terminal?
+A terminal is a program you run that gives you access to the shell. There are many different terminal programs that vary across operating systems.
+*** Using the shell
 Open a terminal (bash)
 #+begin_src sh :eval no :tangle yes
 ls
