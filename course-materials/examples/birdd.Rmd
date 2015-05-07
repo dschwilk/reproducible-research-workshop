@@ -19,7 +19,7 @@ birdd <- read.csv("http://bioquest.org/birdd/Morph_for_Sato.txt",
 
 names(birdd) <- tolower(names(birdd)) # make columns names lowercase
 birdd <- subset(birdd, islandid == "Flor_Chrl") # take only one island
-# only keep these polcolumns:
+# only keep these columns:
 birdd <- birdd[,c("islandid", "taxonorig", "sex", "wingl", "beakh", "ubeakl")]
 names(birdd)[1:2] <- c("island", "taxon")
 birdd <- data.frame(na.omit(birdd)) # remove all rows with any NAs

@@ -20,7 +20,6 @@ names(birdd)[1:2] <- c("island", "taxon")
 birdd <- data.frame(na.omit(birdd)) # remove all rows with any NAs
 birdd$sex <- factor(birdd$sex) # remove extra remaining factor levels
 row.names(birdd) <- NULL # tidy up the row names
-
 # Quick look at wingl:
 ggplot(birdd, aes(taxon, wingl)) + geom_boxplot() + coord_flip()
 # hm, anything wrong?
