@@ -11,7 +11,7 @@ set.seed(55)
 #+end_src
 ** Introduction
 *** Three parts to today's workshop
-1. Introduction to reproducible research and R review
+1. Introduction to reproducible research, introduction to shell and R review
 2. Plain text and literate programming
 3. Version control
 *** Reproducible research
@@ -57,19 +57,20 @@ git clone https://github.com/dschwilk/rr-workshop.git
 **** OR, via GUI:
 - sign into GitHub
 - Select "clone repository" and search for "dschwilk/rr-workshop"
+** The shell
 *** The shell
 Open a terminal (bash)
 #+begin_src sh :eval no
 ls
-cd ..
-mkdir tempdir
+cd ~/rr-workshop
 ls
-cd tempdir
-touch newfile.txt
+cd course-materials/examples
+ls
 echo "hello"
-echo "hello" >> newfile.txt
-ls
+echo "hello" > newfile.txt
 cat newfile.txt
+cd shell
+ls
 cd ..
 #+end_src
 *** Full vs relative paths
@@ -78,19 +79,79 @@ pwd
 cd ~
 pwd
 #+end_src
-*** Shell command options
+*** Shell command options and arguments
 #+begin_src sh :eval no
 ls -l
 ls -al
 man ls
 #+end_src
 *** Wildcards
+Use tab to autocomplete!
 #+begin_src sh :eval no
-cd ~/rr-worskop/examples
+cd ~/rr-worskop/course-materials/examples/
 ls *.R
 ls *.r*
 #+end_src
-** RStudio
+
+*** Finding and displaying files
+=find=, =cat=, =less=
+#+begin_src sh :eval no
+cd shell
+ls -al
+find . -print
+cat MC/MC607.csv
+less MC/MC607.csv
+#+end_src
+
+#+BEAMER: \pause
+Some commands in less:
+| key     | action                 |
+| "space" | to go forward          |
+| "b"     | to go backward         |
+| "g"     | to go to the beginning |
+| "G"     | to go to the end       |
+| "q"     | to quit                |
+
+*** Moving and copying
+#+begin_src sh :eval no
+mkdir alldata
+cp MC/*.csv alldata
+cp GP/*.csv alldata
+find . -print
+mv alldata all-data
+ls -al all-data
+rm all-data #oops
+rm -r all-data
+#+end_src
+
+*** Counting words and lines
+
+#+begin_src sh :eval no
+wc GP/*.csv MC/*.csv
+#+end_src
+
+One file is much shorter than others, why?
+
+#+begin_src sh :eval no
+head MC/MC607.csv -n2
+tail MC/MC607.csv -n2
+head MC/MC606.csv -n2
+tail MC/MC606.csv -n2
+#+end_src
+
+There must be missing data in the middle
+
+*** Let's search for a specific line 
+Find temperatures at between 8 and 9 AM on Jan 1, 2014 in all MC locations. =grep= searches for patterns (regular expressions) in files
+#+begin_src sh :eval no
+grep "1/1/14 8:..:.. AM" MC/*.csv
+
+# and in all files in this folder and below:
+
+grep -r "1/1/14 8:..:.. AM" .
+#+end_src
+
+** R in RStudio
 *** RStudio
 #+ATTR_LaTeX: :width \textwidth
 [[file:images/rstudio-screenshot.jpg]]
@@ -233,7 +294,7 @@ x
 *** Working directory
 #+begin_src R :results none :export code
 getwd()
-setwd(path.expand("~/") )
+# setwd(path.expand("~/") )
 #+end_src
 In Rstudio: Session...Set Working Directory
 * Plain text and literate programming
@@ -252,6 +313,8 @@ To make our research as reproducible and visible as possible
 - Ubiquitous
 - Usually small in size
 - Portable across platforms (and versions)
+- Use one powerful text editing tool for everything you do.
+- Version control: VC systems work best on text files (eg git)
 #+BEAMER: \pause
 **** It is scriptable (both as input as output).
 - Code is always in text format
@@ -278,15 +341,6 @@ And others (ReST, org-mode, etc)
 - Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
 - Use utf-8 (a unicode encoding)
 ** Working with plain text
-*** Why you should love plain text
-:PROPERTIES:
-:BEAMER_act: [<+->]
-:END:
-- Portability. Linux, Windows, Mac, Android, etc. *Standard*.
-- Easy to use. Don't let a word processor get in you way when you just need to *write*
-- Keep content separate from formatting
-- Computers love plain text. Programs are written in plain text. Use one powerful text editing tool for everything you do.
-- Version control: VC systems work best on text files (eg git)
 *** What you want in a text editor
 - Syntax highlighting
 - Braces, parenthesis matching, automatic indenting
@@ -296,7 +350,7 @@ And others (ReST, org-mode, etc)
 #+BEAMER: \pause
 And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email ...
 **** Editors:
-- *Emacs* My favorite.  Runs on everything, super powerful.
+- *Emacs* My favorite. Runs on everything, super powerful.
 - *RStudio* For R code, markdown editing, interacts with git.
 ** Markup languages
 *** Markup
@@ -308,7 +362,6 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
 *** LaTeX (just for illustration)
 **** LaTeX
-- A set of macros around Tex, a markup language invented by Donald Knuth
 - A document preparation system and document markup language.
 - Defacto standard in academic publishing. Formulae used in HTML pages (e.g., Wikipedia)
 #+BEAMER: \pause
