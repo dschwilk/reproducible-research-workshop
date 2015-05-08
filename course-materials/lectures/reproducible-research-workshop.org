@@ -704,9 +704,7 @@ ls
 #+end_src
 
 #+begin_example
-chiller               conductance-protocol.md  field-work-checklist.md    README.md
-code                  data-management.md       gravimetric-soil-water.md  scripts
-computers-network.md  electrolyte-leakage.md   lab-business.md            stem-staining.md
+./  ../   html/  lab-org/  methods/  README.md  safety/
 #+end_example
 *** A basic workflow
 - Edit files
@@ -745,16 +743,16 @@ git log --pretty=oneline --abbrev-commit -10
 #+end_src
 
 #+begin_example
-9a391ef Add Rstudio markdown example
-0af188a Add slides to encryption lecture
-87ba767 Edits and additions to plain text lecture
-bc7b266 Add slides and images to git lecture
-038146d Add "plots" subdir to lectures
-237cebe Add slides to version control (git) lecture
-91476e4 Add examples to markup lecture
-b1b66ab Add \usepackage{booktabs} to style files
-ee949cd Add and expand lectures
-e18d611 Add content to lecture on Emacs
+d2ec17b Reduce markup lecture
+e4d405f Add folder for tangled session files
+bb2d29e Add shell (Bash) examples and some data
+261af83 Clean up birdd files
+e289d7e Minor edit
+f2820d3 Scatterplot fig in birdd example
+75a4be6 Add slides on Bash shell
+66c9a7f Add etherpad link for workshop
+e23b559 Suggest getting github.com account
+7e6a6df Add time and date for workshop
 #+end_example
 *** git diff
 - =git diff= :: difference between working directory and index (staging area)
@@ -762,7 +760,15 @@ e18d611 Add content to lecture on Emacs
 
 With right options, diff can show changes between any two commits, any two files, etc.
 *** git diff example
-#+ATTR_LaTeX: :width \textwidth
+
+Try:
+#+begin_src sh :eval no :exports code
+git diff HEAD~1
+#+end_src
+
+
+*** Diffs on GitHub
+
 [[file:images/github-diff-example.png]]
 
 *** Practice on rr-workshop
