@@ -474,7 +474,7 @@ $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+END_LaTeX
 *** Managing references
 **** A quick example
-#+begin_src markdown
+#+begin_src example
 Introduction
 ============
 
