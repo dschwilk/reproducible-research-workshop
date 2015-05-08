@@ -4,6 +4,7 @@
 * Reproducible research
 :PROPERTIES:
 :EXPORT_FILE_NAME: 01-reproducible-research.pdf
+:tangle: sessions/01-reproducible-research.txt
 :END:
 #+begin_src R :results none :exports none :session
 rm(list=ls())
@@ -643,6 +644,7 @@ Reproducible research in R (see  Yihui Xie's /Dynamic Documents with R and knitr
 * Version Control
 :PROPERTIES:
 :EXPORT_FILE_NAME: 03-version-control.pdf
+:tangle: sessions/03-version-control.txt
 :END:
 ** What is version control?
 *** Why use version control?
