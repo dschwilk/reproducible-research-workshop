@@ -12,9 +12,19 @@ set.seed(55)
 #+end_src
 ** Introduction
 *** Three parts to today's workshop
-1. Introduction to reproducible research, introduction to shell and R review
-2. Plain text and literate programming
-3. Version control
+**** Introduction to reproducible research
+- Automate tasks!
+- Introduction to the shell
+- R review
+
+**** Plain text and literate programming
+- Keep your code, results, figures and interpretation all together
+
+**** Version control
+- Keep track of it all
+- Collaborate
+- Reuse code
+
 *** Reproducible research
 - The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
 - My own goal: all analyses are scripted: tables, figures, parameter values in the manuscript. Nothing is done "by hand".
@@ -46,6 +56,10 @@ set.seed(55)
 2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
 3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
 ** Getting started
+*** Open the etherpad in your web brwser
+
+https://etherpad.mozilla.org/2015-05-13-rr-workshop
+
 *** Clone the workshop repository
 **** If you are on a 405 machine
 - double click the install github icon to install the GitHub application
@@ -61,7 +75,7 @@ git clone https://github.com/dschwilk/rr-workshop.git
 ** The shell
 *** The shell
 Open a terminal (bash)
-#+begin_src sh :eval no
+#+begin_src sh :eval no :tangle yes
 ls
 cd ~/rr-workshop
 ls
@@ -143,7 +157,9 @@ tail MC/MC606.csv -n2
 There must be missing data in the middle
 
 *** Let's search for a specific line 
-Find temperatures at between 8 and 9 AM on Jan 1, 2014 in all MC locations. =grep= searches for patterns (regular expressions) in files
+Find temperatures for measurements between 8 and 9 AM on Jan 1, 2014 in all MC locations. 
+
+=grep= searches for patterns (regular expressions) in files
 #+begin_src sh :eval no
 grep "1/1/14 8:..:.. AM" MC/*.csv
 
@@ -170,7 +186,7 @@ grep -r "1/1/14 8:..:.. AM" .
 - See that there is a git icon and some options under the tools menu now
 - set the working directory to the scripts subfolder
 - open birdd.R in the scripts subfolder 
-** Quick review / introduction to R
+** Quick review of R
 *** R as a calculator:
 #+begin_src R :results output :exports both
 4.0 * 3.5
@@ -330,17 +346,6 @@ Most output is based on simple text file. There are two main final formats: HTML
 
 And others (ReST, org-mode, etc)
 
-*** What is plain text?
-**** Computers store numbers
-- Computers store numbers in binary: 0100110 (38).
-- How to represent characters ("A", "f", "%")?
-
-#+BEAMER: \pause
-
-**** Simple idea: numeric code for each character.  Originated at Bell labs in 1960
-- ASCII: American Standard Code for Information Interchange (128 characters only!)
-- Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
-- Use utf-8 (a unicode encoding)
 ** Working with plain text
 *** What you want in a text editor
 - Syntax highlighting
@@ -361,86 +366,13 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 #+BEAMER: \pause
 ***** With markup languages
 HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
-*** LaTeX (just for illustration)
-**** LaTeX
-- A document preparation system and document markup language.
-- Defacto standard in academic publishing. Formulae used in HTML pages (e.g., Wikipedia)
-#+BEAMER: \pause
-***** But ...
-Notation is cumbersome. It is a "heavyweight" markup language. It is geared towards printed (pdf) output where pages matter (eg printed journal articles)
-**** A LaTeX example
-#+begin_src latex :results none :exports code
-\documentclass[12pt]{article}
-\begin{document}
-\section*{My Paper}
-I just discovered that:
-\begin{equation} e=mc^2 \end{equation}
-
-\begin{table}[h] \centering
-\caption{My table}
-\begin{tabular}{lrs}
-\hline
-Left & right & center \\
-\midrule
-data & 0.01 & 2.3 \\
-\bottomrule
-\end{tabular}
-\end{table}
-\end{document}
-#+end_src
-
-**** Result
-
-#+begin_src latex :exports none :file images/latex-example.pdf :booktabs
-\pagecolor{white}
-\section*{My Paper}
-I just discovered that:
-
-\begin{equation}
-e=mc^2
-\end{equation}
-
-\begin{table}[h]
-\centering
-\caption{My table}
-\begin{tabular}{lrs}
-\toprule
-Left & right & center \\
-\midrule
-data & 0.01 & 2.3 \\
-\bottomrule
-\end{tabular}
-\end{table}
-#+end_src
-
-#+results:
-#+BEGIN_LaTeX
-[[file:images/latex-example.pdf]]
-#+END_LaTeX
-
-
-[[file:images/latex-example.pdf]]
-
-**** It isn't as bad as it seems
-[[file:images/latex-example-emacs.png]]
-
-**** Ready for submission
-[[file:images/latex-paper-output.png]]
-
 *** Markdown
-**** Still, LaTeX is cumbersome
-Alternatives?
-#+BEAMER: \pause
-***** Markdown
-- Easy to learn http://daringfireball.net/projects/markdown/
-- Much more "lightweight" than  LaTeX
-#+BEAMER: \pause
-***** Purposes
-- LaTeX is for paper --- PDF
-- Markdown is for HTML (blogs, wikipedia) --- but sneakily uses some Latex when needed
-- But with pandoc (http://johnmacfarlane.net/pandoc/), Markdown is becoming language of choice among scientists
-- You can even export from markdown to MS Word to keep a collaborator happy.
-**** Markdown example
+- A lightweight markup language (less complicated and less powerful than \LaTex, for example
+- The standard for integrating text and results with R code using RMarkdown files and =knitr=
+- standard source format for structured text in many places now (GitHub, jekyll web sites, etc
+- "Academic markdown" is maturing with support for using reference databases, citation styles, etc.
+
+*** Markdown example
 #+begin_example
 
 ## My Paper ##
@@ -456,11 +388,11 @@ $$e=mc^2$$
 | data | 0.01  | 2.3    |
 
 #+end_example
-**** Which renders as
+*** Which renders as
 
 [[file:images/markdown-simple-example.png]]
 
-**** Text markup
+*** Text markup
 
 #+begin_example
 *italic*, **bold**
@@ -475,7 +407,7 @@ Ordered list:
 2. item 2
 3. item 3
 #+end_example
-**** Headings
+*** Headings
 #+begin_example
 Heading1
 ========
@@ -489,7 +421,7 @@ Heading2
 
 ### Heading 3 ###
 #+end_example
-**** Markdown links
+*** Markdown links
 #+begin_example
 Links:
 
@@ -499,7 +431,7 @@ http://daringfireball.net/projects/markdown/syntax
 
 [mkdn]: http://daringfireball.net/projects/markdown/syntax
 #+end_example
-**** Markdown math
+*** Markdown math
 Just use LateX math!
 
 #+name: latex-math
@@ -508,13 +440,13 @@ $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
 #+end_src
 
 
-***** Which renders as:
+**** Which renders as:
 #+results: latex-math
 #+BEGIN_LaTeX
 $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
 #+END_LaTeX
 
-**** Markdown math
+*** Markdown math
 Inline equations just need a single =$=
 
 #+name: latex-math2
@@ -523,82 +455,57 @@ In ecology, "true" species diversity is:
 $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+end_src
 
-***** Which renders as
+**** Which renders as
 
 #+results: latex-math2
 #+BEGIN_LaTeX
 In ecology, "true" species diversity is:
 $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+END_LaTeX
-
 *** Managing references
-**** BibTeX
-A reference database format
+**** A quick example
+#+begin_src markdown
+Introduction
+============
 
-- Very versatile and very powerful (most other markup languages work with bibtex as well)
-- Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
-**** Bibtex entry
-
-#+begin_src latex :results silent :exports code
-@article{Schwilk+Ackerly-2001,
-  title={Flammability and serotiny as strategies:
-         correlated evolution in pines},
-  author={Schwilk, Dylan W and Ackerly, David D},
-  journal={Oikos},
-  volume={94},
-  number={2},
-  pages={326--336},
-  year={2001},
-  publisher={Wiley Online Library}
-}
+North American forests have been shaped by fire over evolutionary and
+ecological time scales. However, for much of the 20th century, land managers
+concentrated on minimizing the amount of land that burned. Compared to
+presettlement fire regimes in many contemporary forests, fire intervals have
+lengthened [@Cyr+Gauthier+etal-2009; @Spetich+Perry+etal-2011;
+@Aldrich+Lafon+etal-2010], although there is evidence for significant
+variability in historical fire return intervals [@Odion+Hanson+etal-2014].
+Increased recognition of the central role of fire in maintaining forest
+structure and function has contributed to a shift from fire exclusion to the
+reintroduction of fire in fire-dependent forests, most often with the aim of
+reducing fuels and restoring historic stand structure [@Agee+Skinner-2005].
+This recognition has prompted federal initiatives such as the National Fire
+Plan and Healthy Forest Restoration Act (2003) that mandate federal land
+managers to restore forest structure and function and reduce risk of wildfire
+on federal lands. Use of widespread fuel treatments has led to increasing
+discussion of the effectiveness, suitability and ecological impacts of thinning
+and prescribed fire [@Schoennagel+Veblen+etal-2004; @Schoennagel+Nelson-2010;
+@Schwilk+Keeley+etal-2009]. 
 #+end_src
-**** In Jabref
-http://jabref.sourceforge.net/
+**** Result
+[[file:images/markdown-ms.png]]
 
-[[file:images/jabref-example.png]]
-**** Markdown and BibTeX example
-Requires pandoc markdown extensions.
-#+begin_example
-# Introduction #
-Fire has been a powerful disturbance on the global
-landscape for hundreds of thousands of years,
-promoting traits in plants which confer an
-advantage in the presence of fire
-[@Keeley+Pausas+etal-2011; @He+Pausas+etal-2012].
-Understanding variation in fire response
-strategies both across and within fire regimes is
-a major goal of plant fire ecology
-[@Bond+vanWilgen-1996; @Bellingham-2000;
-@Schwilk+Ackerly-2001; @Keeley+Pausas+etal-2011].
-#+end_example
-
-*** Which markup to use?
-**** Which do I use and when:
-:PROPERTIES:
-:BEAMER_envargs: [<+->]
-:END:
-- Scientific papers :: LaTeX + BibTex. I'm starting to use Markdown for some papers (easy conversion to MS word for collaborators).
-- Presentations :: LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown)
-- Websites :: Markdown with html and css templates (jekyll, eg http://www.schwilk.org) or org-mode export (eg http://r-research-tool.schwilk.org/)
-- Documentation, notes, literate programming: org-mode or markdown
-
-**** Pandoc
+*** Pandoc
 So how do we glue everything together and produce wonderful htmls and pdfs out of thin air?
 
 #+BEAMER: \pause
 With pandoc: http://johnmacfarlane.net/pandoc/
 #+BEAMER: \pause
-****** pandoc
+***** pandoc
 - Pandoc can convert from :: markdown, LaTeX, HTML, DocBook, Org-mode, and ... Microsoft Word .docx
 - To :: HTML formats (including HTML5 slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
 
-*** Scientific workflow
-**** An RMarkdown workflow
+*** An RMarkdown workflow
 Figure from Kieran Healy: http://kieranhealy.org/resources/
 
  #+ATTR_LATEX: :width \textwidth
 [[file:images/Healy-workflow-wide.png]]
-**** RMarkdown in RStudio
+*** RMarkdown in RStudio
 See http://rmarkdown.rstudio.com/
 #+ATTR_LATEX: :width .75\textwidth
 [[file:images/markdownChunk.png]]
@@ -673,14 +580,7 @@ see http://git-scm.com/book/
 [[file:images/distributed-vc.png]]
 
 ** git
-*** Installing
-On Mac and Windows:
-**** The GitHub app (make sure to install command line tools as well):
-- https://mac.github.com/
-- https://windows.github.com/
 *** Configuring
-
-Done automatically if you ran the GitHub app and logged on to github
 
 #+begin_src sh :eval no
 git config --global user.name "Dylan Schwilk"
@@ -689,14 +589,17 @@ git config --global user.email "dylan@schwilk.org"
 
 *** Getting a "repo" (repository)
 
-Move to empty directory
 #+begin_src sh :eval no
+cd ~
+mkdir newrepo
+cd newrepo
 git init
 touch README.md
+ls .git -al
 #+end_src
 *** What happened?
 Hidden directory called =.git=
-\tiny
+#+BEAMER:\tiny
 #+begin_example
 .
 ├── .git
@@ -730,7 +633,7 @@ Hidden directory called =.git=
 git status
 #+end_src
 
-\tiny
+#+BEAMER: \tiny
 #+begin_example
 On branch master
 
@@ -793,7 +696,7 @@ A commit is a snapshot taken from the index (staging area) *not from the working
 [[file:images/git-filesystem2.png]]
 
 *** Clone repo
-\tiny
+#+BEAMER: \tiny
 #+begin_src sh :eval no
 git clone https://github.com/schwilklab/protocols.git
 cd protocols
@@ -862,6 +765,9 @@ With right options, diff can show changes between any two commits, any two files
 #+ATTR_LaTeX: :width \textwidth
 [[file:images/github-diff-example.png]]
 
+*** Practice on rr-workshop
+- open birdd.Rmd
+- Explore data together and commit changes
 ** Working with branches
 *** Branches
 A branch represents an independent line of development.
@@ -989,7 +895,7 @@ or just: git push
 This works if none else has pushed changes to that remote since you last pulled. If there is an error, you will need to pull (fetch and merge) first.
 
 *** git and GitHub
-
+idea of "forking"
 ** Advanced uses
 *** stage only portions of change
 #+begin_src sh :eval no
