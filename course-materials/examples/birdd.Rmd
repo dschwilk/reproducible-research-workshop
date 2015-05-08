@@ -31,6 +31,5 @@ row.names(birdd) <- NULL # tidy up the row names
 
 ```{r}
 ggplot(birdd, aes(taxon, wingl)) + geom_boxplot() + coord_flip()
-#plot(runif(100),runif(100))
 ```
 

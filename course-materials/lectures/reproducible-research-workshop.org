@@ -346,11 +346,21 @@ Most output is based on simple text file. There are two main final formats: HTML
 
 And others (ReST, org-mode, etc)
 
-** Working with plain text
+*** What is plain text?
+**** Computers store numbers
+- Computers store numbers in binary: 0100110 (38).
+- How to represent characters ("A", "f", "%")?
+
+#+BEAMER: \pause
+
+**** Simple idea: numeric code for each character.  Originated at Bell labs in 1960
+- ASCII: American Standard Code for Information Interchange (128 characters only!)
+- Current standard: unicode. Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
+- Use utf-8 (a unicode encoding)
 *** What you want in a text editor
 - Syntax highlighting
-- Braces, parenthesis matching, automatic indenting
-- Ability to work with interpreters, shells
+- Braces, parenthesis matching, automatic indenting, wrapping comments
+- Ability to work with multiple interpreters (R, Bash, Python, Julia . . .)
 - Spell checking
 
 #+BEAMER: \pause
@@ -513,8 +523,8 @@ See http://rmarkdown.rstudio.com/
 *** Literate programming with RStudio
 Can aid in reproducible research: Simply combine text and code
 
-- Plain R script :: Simplest.  This is how I teach my graduate programming course. Encourage use of comments and require that script run from top to bottom without error. In Rstudio, one can compile this to an RMarkdown file  (Compile Notebook command).
-- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output.  Can work with LaTeX (rnw files) and with RMarkdown (Rmd). Can work with emacs or with RStudio
+- Plain R script :: Simplest. This is how I teach my graduate programming course. Encourage use of comments and require that script run from top to bottom without error. In RStudio, one can compile this to an RMarkdown file (Compile Notebook command).
+- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output. Can work with LaTeX (rnw files) and with RMarkdown (Rmd).
 *** RMarkdown and knitr
 =knitr= is an R package that can interpret .rnw files (LaTeX) or RMarkdown files (.Rmd) with R code blocks and "knit" them into LaTeX or markdown (.md) files that can be processed to html, pdf, etc (eg with pandoc)
 *** RMarkdown example:
@@ -538,6 +548,11 @@ head(mpg)
 *** Result:
 #+ATTR_LaTeX: :width 0.65\textwidth
 [[file:images/rmarkdown-example.png]]
+*** Practice on birdd.Rmd
+**** RStudio
+- Make sure you have the rr-workshop project open (File ... Open Project)
+- Open birdd.Rmd
+
 *** Best practices 
 
 Reproducible research in R (see  Yihui Xie's /Dynamic Documents with R and knitr/)
