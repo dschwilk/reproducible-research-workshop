@@ -1,0 +1,16 @@
+{
+    "contents" : "# Clean bird data #\n\nDylan Schwilk\n\nThis script downloads and cleans up morphological data from Galapagos\nfinches, which is available from BIRDD: Beagle Investigation Return with\nDarwinian Data at http://bioquest.org/birdd/morph.php\n\n\n```{r}\nlibrary(ggplot2)\n```\n\n## Clean up data: ##\n\n```{r}\nbirdd <- read.csv(\"http://bioquest.org/birdd/Morph_for_Sato.txt\",\n                  sep=\"\\t\", stringsAsFactors=FALSE)\n\nnames(birdd) <- tolower(names(birdd)) # make columns names lowercase\nbirdd <- subset(birdd, islandid == \"Flor_Chrl\") # take only one island\n# only keep these columns:\nbirdd <- birdd[,c(\"islandid\", \"taxonorig\", \"sex\", \"wingl\", \"beakh\", \"ubeakl\")]\nnames(birdd)[1:2] <- c(\"island\", \"taxon\")\nbirdd <- data.frame(na.omit(birdd)) # remove all rows with any NAs\nbirdd$sex <- factor(birdd$sex) # remove extra remaining factor levels\nrow.names(birdd) <- NULL # tidy up the row names\n```\n\n## Quick look at wingl: ##\n\n```{r}\nggplot(birdd, aes(taxon, wingl)) + geom_boxplot() + coord_flip()\n```\n\n",
+    "created" : 1431121255253.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3684066839",
+    "id" : "8B7D57B4",
+    "lastKnownWriteTime" : 1431121598,
+    "path" : "~/teaching/courses/rr-workshop/course-materials/examples/birdd.Rmd",
+    "project_path" : "course-materials/examples/birdd.Rmd",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
