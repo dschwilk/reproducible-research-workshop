@@ -2,7 +2,7 @@
 #+TITLE: Reproducible Research Workshop
 #+AUTHOR: Dylan Schwilk
 
-May 13, 2015 1:00-5:00 PM, Biology 405
+May 13, 2015 12:30-4:30 PM, Biology 405
 
 * Setup
 
