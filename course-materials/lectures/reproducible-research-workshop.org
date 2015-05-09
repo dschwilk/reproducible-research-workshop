@@ -383,7 +383,7 @@ HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
 - "Academic markdown" is maturing with support for using reference databases, citation styles, etc.
 
 *** Markdown example
-#+begin_src markdown :eval no
+#+begin_example
 ## My Paper ##
 
 I just discovered that:
@@ -396,7 +396,7 @@ $$e=Mc^2$$
 |------|-------|--------|
 | data | 0.01  | 2.3    |
 
-#+end_src
+#+end_example
 *** Which renders as
 
 [[file:images/markdown-simple-example.png]]
