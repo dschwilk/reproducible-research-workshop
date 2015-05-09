@@ -41,9 +41,14 @@ you can use your package manager (e.g. for Debian/Ubuntu 	run =sudo apt-get inst
 - Etherpad: we'll use this etherpad to share notes and code: https://etherpad.mozilla.org/2015-05-13-rr-workshop
 - [[file:lectures/reproducible-research-workshop.org][Lecture notes]]
 * External resources
+** R and RStudio
 - [[http://www.rstudio.com/][RStudio]]
+
+** git 
 - [[https://try.github.io][GitHub learn git tutorial]]
 - [[http://library.ttu.edu/lynda/][TTU lynda.com git tutorial]]
+- [[http://blogs.biomedcentral.com/bmcblog/2013/02/28/version-control-for-scientific-research/][BioMed Central post on using verison control in science]]
+** Markdown
 - [[http://pandoc.org/][pandoc]]
 
 
