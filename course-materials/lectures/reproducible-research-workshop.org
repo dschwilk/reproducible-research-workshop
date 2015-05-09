@@ -319,7 +319,7 @@ In Rstudio: Session...Set Working Directory
 :EXPORT_FILE_NAME: 02-plain-text.pdf
 :END:
 ** Why plain text?
-*** Our main goal as scientists
+*** One goal as scientists
 To make our research as reproducible and visible as possible
 #+BEAMER: \pause
 **** This entails:
@@ -383,13 +383,12 @@ HTML (+CSS), LaTeX, Markdown, RMarkdown,  org-mode.
 - "Academic markdown" is maturing with support for using reference databases, citation styles, etc.
 
 *** Markdown example
-#+begin_example
-
+#+begin_src markdown :eval no
 ## My Paper ##
 
 I just discovered that:
 
-$$e=mc^2$$
+$$e=Mc^2$$
 
 ### My Table ###
 
@@ -397,7 +396,7 @@ $$e=mc^2$$
 |------|-------|--------|
 | data | 0.01  | 2.3    |
 
-#+end_example
+#+end_src
 *** Which renders as
 
 [[file:images/markdown-simple-example.png]]
@@ -474,7 +473,7 @@ $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+END_LaTeX
 *** Managing references
 **** A quick example
-#+begin_src example
+#+begin_example
 Introduction
 ============
 
@@ -496,7 +495,7 @@ on federal lands. Use of widespread fuel treatments has led to increasing
 discussion of the effectiveness, suitability and ecological impacts of thinning
 and prescribed fire [@Schoennagel+Veblen+etal-2004; @Schoennagel+Nelson-2010;
 @Schwilk+Keeley+etal-2009]. 
-#+end_src
+#+end_example
 **** Result
 [[file:images/markdown-ms.png]]
 
