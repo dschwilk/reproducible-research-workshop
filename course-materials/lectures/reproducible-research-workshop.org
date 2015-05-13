@@ -84,7 +84,7 @@ The most popular shell is [[https://www.gnu.org/software/bash/manual/html_node/I
 A terminal is a program you run that gives you access to the shell. There are many different terminal programs that vary across operating systems.
 *** Using the shell
 Open a terminal (bash)
-#+begin_src sh :eval no :tangle yes
+#+begin_src sh :eval no
 ls
 cd ~/rr-workshop
 ls
@@ -164,7 +164,6 @@ tail MC/MC606.csv -n2
 #+end_src
 
 There must be missing data in the middle
-
 *** Let's search for a specific line 
 Find temperatures for measurements between 8 and 9 AM on Jan 1, 2014 in all MC locations. 
 
@@ -175,6 +174,14 @@ grep "1/1/14 8:..:.. AM" MC/*.csv
 # and in all files in this folder and below:
 
 grep -r "1/1/14 8:..:.. AM" .
+#+end_src
+
+*** The pipe =|=
+"Pipe" the output of one command as input to another
+#+begin_src sh :eval no
+wc GP/*.csv MC/*.csv
+wc GP/*.csv MC/*.csv | tail -n1
+wc GP/*.csv MC/*.csv | grep "total"
 #+end_src
 
 ** R in RStudio
@@ -193,8 +200,8 @@ grep -r "1/1/14 8:..:.. AM" .
 - file ... new project
 - select the folder into which you cloned "rr-worskhop"
 - See that there is a git icon and some options under the tools menu now
-- set the working directory to the scripts subfolder
-- open birdd.R in the scripts subfolder 
+- set the working directory to the =course-materials/examples= folder
+- open birdd.R in the =examples= folder
 ** Quick review of R
 *** R as a calculator:
 #+begin_src R :results output :exports both
@@ -323,9 +330,14 @@ getwd()
 # setwd(path.expand("~/") )
 #+end_src
 In Rstudio: Session...Set Working Directory
+
+*** Practice: look at Galapagos bird morphology data
+- set working dir to "rr-workshop/course-materials/examples"
+- Walk through code and test visualizations
 * Plain text and literate programming
 :PROPERTIES:
 :EXPORT_FILE_NAME: 02-plain-text.pdf
+:tangle: sessions/02-plain-text.txt
 :END:
 ** Why plain text?
 *** One goal as scientists
