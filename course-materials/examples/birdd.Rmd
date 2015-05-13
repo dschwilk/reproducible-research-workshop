@@ -15,7 +15,7 @@ library(ggplot2)
 
 ```{r}
 birdd <- read.csv("http://bioquest.org/birdd/Morph_for_Sato.txt",
-                  sep="\t", stringsAsFactors=FALSE)
+                  sep="\t", stringsAsFactors=FALSE, strip.white=TRUE)
 
 names(birdd) <- tolower(names(birdd)) # make columns names lowercase
 birdd <- subset(birdd, islandid == "Flor_Chrl") # take only one island
