@@ -56,7 +56,7 @@ set.seed(55)
 2. an interpreter for a computer language (eg R). I also recommend learning how to use "the shell"
 3. a good text editor which will allow not only editing but interact nicely with tools 1 and 2, above. I use Emacs. I will introduce you to RStudio.
 ** Getting started
-*** Open the etherpad in your web brwser
+*** Open the etherpad in your web browser
 
 https://etherpad.mozilla.org/2015-05-13-rr-workshop
 
